@@ -1,0 +1,45 @@
+@import "./reset";
+@import "./variable";
+/****************button*****************/
+button.btn.btn-md{
+	font-size: @text_font_size;
+	padding: 3px 22px;
+}
+button.btn.btn-blue-bg{
+	background-color: @theme_color;
+	color: #fff;
+}
+button.btn.btn-blue{
+	color: @theme_color;
+	background: none;
+	border: 1px solid @theme_color;
+	border-radius: 5px;
+}
+
+/****************公用class*****************/
+.model_center{
+	position: fixed;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform:translate(-50%,-50%);
+	/*margin-top: -181px;
+	margin-left: -462px;*/
+}
+
+
+.no-margin {
+	margin: 0 !important;
+}
+.no-padding-right {
+	padding-right: 0 !important;
+}
+.no-padding-left {
+	padding-left: 0 !important;
+}
+
+.clearfloat:after{
+	content: '';
+	display: block;
+	clear: both;
+}

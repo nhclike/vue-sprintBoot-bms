@@ -3,7 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import $ from 'jquery'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min'
+import '@/less/comm/comm.css'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-default/index.css';    // 默认主题
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

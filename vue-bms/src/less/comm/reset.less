@@ -1,0 +1,39 @@
+@import './variable';
+//重写
+*{
+	margin: 0;
+	padding: 0;
+	outline: none;
+	box-sizing: border-box;
+}
+.clearfloat:after{  /*最简方式*/
+	content: '';
+	display: block;
+	clear: both;
+}
+.pull-right{
+	float: right;
+}
+.pull-left{
+	float: left;
+}
+html,body{
+	height: 100%;
+	width: 100%;
+}
+body{
+	line-height: 1;
+}
+
+li{
+	list-style: none;
+}
+
+//重写
+body,ul,li,p,h1,h2,h3,h4,h5,h6,img,br,hr,table,tr,td,dl,dt,dd,form {
+	margin: 0;
+	padding: 0;
+}
+a{
+	text-decoration: none;
+}
