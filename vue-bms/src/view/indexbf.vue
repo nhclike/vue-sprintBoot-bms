@@ -3,10 +3,10 @@
     <Header></Header>
     <div class="content">
       <div class="left">
-        <left-menu></left-menu>
+        <ele-menu></ele-menu>
       </div>
       <div class="right">
-        <router-view/>
+
 
       </div>
     </div>
@@ -15,14 +15,14 @@
 
 <script>
   import Header from '@/components/header/header'
-  import LeftMenu from '@/components/menu/left-menu'
+  import EleMenu from '@/components/menu/element-ui-menu'
   export default {
     data(){
       return {}
     },
     components:{
       Header,
-      LeftMenu
+      EleMenu
     }
   }
 </script>
@@ -38,14 +38,11 @@
     .left{
       float: left;
       height: 100%;
-      width: 250px;
+      width: 30%;
     }
     .right{
-      position: fixed;
-      top:50px;
-      bottom: 0;
-      left: 250px;
-      right: 0;
+      float: left;
+      width: 70%;
     }
   }
 </style>

@@ -13,6 +13,25 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
+//第一步 const portfinder = require('portfinder'),在后面加上
+const express = require('express');
+const app = express();//请求server
+const appData = require('../static/deptList.json');//加载本地数据文件
+
+const deptTableList = appData.rows;//获取对应的本地数据
+
+const apiRoutes = express.Router();
+apiRoutes.get('/api/getList', (req, res) => {
+  res.json({
+    errno: 0,
+    data: deptTableList
+  })//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+});
+app.use(apiRoutes);//通过路由请求数据
+
+
+
+
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -42,7 +61,19 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+    //第二步找到devServer,在里面添加
+    before(app) {
+
+      app.get('/api/getList', (req, res) => {
+        res.json({
+          errno: 0,
+          data: deptTableList
+        })//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+      })
+
     }
+
   },
   plugins: [
     new webpack.DefinePlugin({

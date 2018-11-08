@@ -1,7 +1,12 @@
 <template>
-	<div>
-    {{msg}}
-	</div>
+  <div>
+    <div>
+      {{msg}}
+    </div>
+
+  </div>
+
+
 </template>
 
 <script>
@@ -11,6 +16,7 @@
         msg:"this is a business manange project"
       }
     }
+
   }
 </script>
 
