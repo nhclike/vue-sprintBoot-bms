@@ -46,6 +46,7 @@
       bottom: 0;
       left: 250px;
       right: 0;
+      background-color: #ddd;
     }
   }
 </style>

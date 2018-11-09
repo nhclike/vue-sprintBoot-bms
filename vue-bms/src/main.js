@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import $ from 'jquery'
 import axios from 'axios';
-
+import qs from 'qs'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'
 import '@/less/comm/comm.css'
@@ -15,7 +15,7 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios;
-
+Vue.prototype.$qs = qs;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

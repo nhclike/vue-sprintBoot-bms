@@ -33,9 +33,13 @@
     </el-table>
     <div class="pagination">
       <el-pagination
-        @current-change ="handleCurrentChange"
-        layout="prev, pager, next"
-        :total="1000">
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="cur_page"
+        :page-sizes="[20, 50, 100]"
+        :page-size="100"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400">
       </el-pagination>
     </div>
   </div>
@@ -48,11 +52,11 @@
         url: '',
         tableData: [],
         cur_page: 1,
+        cur_page_size:20,
         deptNo:'',
         deptName:'',
         deptStatus: '',
-        params:{},
-        is_search: false
+        params:{}
       }
     },
     created(){
@@ -62,14 +66,18 @@
 
     },
     methods: {
-      handleCurrentChange(val){
-        this.cur_page = val;
-        this.getData();
-
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+        this.cur_page_size=val;
       },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+        this.cur_page=val;
+      },
+
       getData(){
         this.params={
-          pageSize:10,
+          pageSize:this.cur_page_size,
           pageNum:this.cur_page,
           deptNo:this.deptNo,
           deptName:this.deptName,
@@ -83,10 +91,10 @@
           self.tableData = res;
           console.log(self.tableData)
         })
-        /*this.$axios.get("/static/deptList.json").then((res)=>{
-          self.tableData=res.data.rows;
-          console.log(res);
-        })*/
+//        this.$axios.get("/static/deptList.json").then((res)=>{
+//          self.tableData=res.data.rows;
+//          console.log(res);
+//        })
       }
     }
   }

@@ -6,7 +6,7 @@
         <ele-menu></ele-menu>
       </div>
       <div class="right">
-
+        <date-picker></date-picker>
 
       </div>
     </div>
@@ -14,15 +14,17 @@
 </template>
 
 <script>
-  import Header from '@/components/header/header'
+  import Header from '@/components/header/element-ui-header'
   import EleMenu from '@/components/menu/element-ui-menu'
+  import DatePicker from '@/components/timePicker/element-ui-date-picker'
   export default {
     data(){
       return {}
     },
     components:{
       Header,
-      EleMenu
+      EleMenu,
+      DatePicker
     }
   }
 </script>

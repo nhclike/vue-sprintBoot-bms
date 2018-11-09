@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import BasicTable from  '@/components/table/basic-table';
+  import BasicTable from  '@/components/table/element-ui-basic-table';
 
   export default {
     data(){

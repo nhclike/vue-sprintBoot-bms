@@ -52,7 +52,8 @@
 
 
 <script type="text/ecmascript-6">
-    import axios from "axios";
+
+    import { loginApi } from '../api/api'
     export default{
         data () {
             return {
@@ -67,12 +68,13 @@
         methods:{
           fnLogin(){
             let params={
-              loginName:this.loginName,
-              password:this.password
+              "loginName":this.loginName,
+              "password":this.password
             };
-            axios.post("/loginVerify",params).then((res)=>{
-              console.log(res);
+            loginApi.userLogin(params).then((result)=>{
+              console.log(result);
             })
+
           }
         }
     }
