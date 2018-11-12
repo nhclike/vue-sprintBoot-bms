@@ -5,7 +5,7 @@
     <div class="right">
       <ul>
         <li>
-          <span @click="toggleShow">admin</span>
+          <span @click="toggleShow">{{userName}}</span>
         </li>
         <li>
           <span @click="logout" v-show="flag">退出登录</span>
@@ -16,11 +16,17 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex';
   export default {
     data(){
       return {
         flag:false
       }
+    },
+    computed:{
+      ...mapGetters([
+        'userName'
+      ])
     },
     methods:{
       logout(){

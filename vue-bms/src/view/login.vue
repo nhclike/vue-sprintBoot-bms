@@ -52,8 +52,10 @@
 
 
 <script type="text/ecmascript-6">
-
+    /*登录接口*/
     import { loginApi } from '../api/api'
+    /*更新登录人员*/
+    import {mapMutations} from 'vuex'
     export default{
         data () {
             return {
@@ -72,10 +74,20 @@
               "password":this.password
             };
             loginApi.userLogin(params).then((result)=>{
-              console.log(result);
-            })
+              //console.log(result.data.loginName);
+              let userName=result.data.loginName;
+              if(result.code===1){
+                  this.setUserName(userName);
+                  this.$router.push({
+                    path:'/index'
+                  })
+              }
 
-          }
+            })
+          },
+          ...mapMutations({
+            setUserName:'SET_USERNAME'
+          })
         }
     }
 </script>
