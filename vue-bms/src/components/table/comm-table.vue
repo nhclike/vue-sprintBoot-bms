@@ -37,7 +37,7 @@
         <template slot-scope="scope">
           <div class="operate-group">
             <template v-for="(btn, key) in operates.list">
-              <div class="item" v-if="btn.show" :key='btn.id'>
+              <div class="item" v-if="btn.show" :key='btn.id' :style="{width: btn.width + 'px'}">
                 <el-button :type="btn.type" size="mini" :icon="btn.icon" :disabled="btn.disabled"
                            :plain="btn.plain" @click.native.prevent="btn.method(key,scope.row)">{{ btn.label }}
                 </el-button>
@@ -120,6 +120,8 @@
     }
   }
 </script>
-<style lang="scss" >
-
+<style lang="less" >
+.item{
+  float: left;
+}
 </style>

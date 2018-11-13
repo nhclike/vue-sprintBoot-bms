@@ -9,9 +9,6 @@
     <annotation-enable>false</annotation-enable>
     <other-services-enabled>true</other-services-enabled>
   </component>
-  <component name="ProjectDictionaryState">
-    <dictionary name="lij" />
-  </component>
   <component name="SvnConfiguration">
     <configuration>C:\Users\lij\AppData\Roaming\Subversion</configuration>
   </component>
