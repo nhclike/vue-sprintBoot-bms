@@ -3,7 +3,7 @@
     <el-dialog
       :title="title"
       :visible.sync="mdShow"
-      width="30%"
+      :width="width"
       :before-close="handleClose"
       :modal="modal"
       :close-on-click-modal="closeOnClickModal"
@@ -35,6 +35,10 @@
       closeOnClickModal:{
         type:Boolean,
         default:false
+      },
+      width:{
+        type:String,
+        default:"30%"
       }
     },
 
@@ -45,11 +49,6 @@
     methods: {
       handleClose(done) {
         this.$emit('close');
-        trigger('click');
-      },
-      closeModal(){
-        this.$emit('close');
-        trigger('click');
       }
     }
   };

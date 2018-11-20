@@ -1,7 +1,10 @@
 <!--region 封装的分页 table-->
 <template>
   <div class="table">
-    <el-table id="iTable" v-loading.iTable="options.loading" :data="list" :stripe="options.stripe"
+    <el-table id="iTable"
+              v-loading.iTable="options.loading"
+              :data="list"
+              :stripe="options.stripe"
               ref="mutipleTable"
               @selection-change="handleSelectionChange">
       <!--region 选择框-->

@@ -1,6 +1,9 @@
 <template>
 	<div>
-    <el-button type="primary" @click="addUser">新增</el-button>
+    <div class="top">
+      <el-button id="addBtn" type="primary" @click="addUser">新增</el-button>
+
+    </div>
     <i-table :list="list"
              @handleSelectionChange="handleSelectionChange"
              :options="options"
@@ -8,12 +11,12 @@
              :operates="operates"
     >
     </i-table>
-    <i-dialog v-bind:mdShow="userEditModal" title="用户编辑" v-on:close="closeModal">
+    <i-dialog v-bind:mdShow="userEditModal" width="500px"  title="用户编辑" v-on:close="closeModal">
       <div slot="message">
         <user-form :userInfo="userInfo"></user-form>
       </div>
       <div slot="btnGroup">
-        <el-button type="primary" @click="saveUserInfo('')">保存</el-button>
+        <el-button type="primary" @click="saveUserInfo">保存</el-button>
         <el-button type="success" @click="resetUserInfo">重置</el-button>
       </div>
     </i-dialog>
@@ -22,7 +25,7 @@
         <user-form :userInfo="userInfo"></user-form>
       </div>
       <div slot="btnGroup">
-        <el-button type="primary" @click="saveUserInfo(userEditId)">保存</el-button>
+        <el-button type="primary" @click="saveUserInfo">保存</el-button>
         <el-button type="success" @click="resetUserInfo">重置</el-button>
       </div>
     </i-dialog>
@@ -45,7 +48,7 @@
       return {
         userEditModal:false,
         userAddModal:false,
-        userEditId:null,
+        userEditId:'',
         userInfo:{},
         list: [], // table数据
         options: {
@@ -130,9 +133,7 @@
           pageNum:1
         };
         User.userList(param).then((res)=>{
-         //console.log(res);
           this.list=res.data.rows;
-          //console.log(this.list);
         })
       },
       //更新用户数据
@@ -140,20 +141,24 @@
         User.updateUserInfo(param).then((res)=>{
           let data=res.data;
           if(data.code==1){
-            alert(data.msg);
+            console.log(data.msg);
           }
-          //console.log(res);
         })
       },
+      //根据用户id拿到用户信息
       getUserInfo(param){
-
         User.getUserInfo(param).then((res)=>{
-         console.log('getUserInfo');
-          console.log(res);
           let data=res.data;
           if(data.code==1){
             this.userInfo=data.data;
           }
+        })
+      },
+      //删除用户
+      deleteUserInfo(param){
+        User.deleteUserInfo(param).then((res)=>{
+          let data=res.data;
+          console.log(data)
         })
       },
       // 选中行
@@ -170,7 +175,11 @@
       // 删除
       handleDel (index, row) {
         console.log(' index:', index)
-        console.log(' row:', row)
+        console.log(' row:', row);
+        this.deleteUserInfo({"id":row.id});
+        //刷新table
+        this.getUserListDate();
+
       },
       //关闭modal
       closeModal(){
@@ -179,19 +188,36 @@
       },
       //保存用户信息
       saveUserInfo(){
+        //向数据库加入数据
+        this.updateUserInfo(this.userInfo);
+        //关闭modal
+        this.closeModal();
+        //刷新table
+        this.getUserListDate();
 
-        this.updateUserInfo(this.userInfo)
       },
+      //重置用户信息
       resetUserInfo(){
         this.userInfo={}
       },
+      //新增用户
       addUser(){
         this.userAddModal=true;
+        //用户信息置空
+        this.userInfo={};
       }
     }
   }
 </script>
 
-<style>
-
+<style scoped lang="less">
+.top{
+  position: relative;
+  height:50px;
+  #addBtn{
+    position: absolute;
+    top:5px;
+    left:5px;
+  }
+}
 </style>

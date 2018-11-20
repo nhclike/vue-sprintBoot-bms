@@ -41,7 +41,50 @@ export const User = {
         resolve(res)
       })
     })
+  },
+  deleteUserInfo(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/user_del',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
   }
 };
+
+export const Dept={
+  deptList(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/dept_getList',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+  updateDeptInfo(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/dept_addOrUpdate',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+  getDeptInfo(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/dept_getDeptById',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+  deleteDeptInfo(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/dept_del',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  }
+}
 
 
