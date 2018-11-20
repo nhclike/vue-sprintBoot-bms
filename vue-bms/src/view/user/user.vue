@@ -1,5 +1,6 @@
 <template>
 	<div>
+    <el-button type="primary" @click="addUser">新增</el-button>
     <i-table :list="list"
              @handleSelectionChange="handleSelectionChange"
              :options="options"
@@ -7,18 +8,45 @@
              :operates="operates"
     >
     </i-table>
+    <i-dialog v-bind:mdShow="userEditModal" title="用户编辑" v-on:close="closeModal">
+      <div slot="message">
+        <user-form :userInfo="userInfo"></user-form>
+      </div>
+      <div slot="btnGroup">
+        <el-button type="primary" @click="saveUserInfo('')">保存</el-button>
+        <el-button type="success" @click="resetUserInfo">重置</el-button>
+      </div>
+    </i-dialog>
+    <i-dialog v-bind:mdShow="userAddModal" title="用户新增" v-on:close="closeModal">
+      <div slot="message">
+        <user-form :userInfo="userInfo"></user-form>
+      </div>
+      <div slot="btnGroup">
+        <el-button type="primary" @click="saveUserInfo(userEditId)">保存</el-button>
+        <el-button type="success" @click="resetUserInfo">重置</el-button>
+      </div>
+    </i-dialog>
 	</div>
 </template>
 
 <script>
   //用户接口
   import { User } from '../../api/api'
-
   import iTable from '@/components/table/comm-table'
+  import iDialog from '@/components/modal/element-ui-dialog'
+  import userForm from '@/view/user/userForm'
   export default {
-    components: {iTable},
+    components: {
+      iTable,
+      iDialog,
+      userForm
+    },
     data () {
       return {
+        userEditModal:false,
+        userAddModal:false,
+        userEditId:null,
+        userInfo:{},
         list: [], // table数据
         options: {
           stripe: true, // 是否为斑马纹 table
@@ -27,11 +55,7 @@
           mutiSelect: false, // 是否支持列表项选中功能
         }, // table 的参数
         columns: [
-          {
-            prop: 'id',
-            label: '用户表id',
-            align: 'center',
-          },
+
           {
             prop: 'loginName',
             label: '登录名',
@@ -46,16 +70,19 @@
             prop: 'createTime',
             label: '创建时间',
             align: 'center',
+
           },
           {
             prop: 'createUser',
             label: '创建人',
             align: 'center',
+
           },
           {
             prop: 'description',
             label: '描述',
             align: 'center',
+
           }
         ], // 需要展示的列
         operates: {
@@ -83,7 +110,6 @@
               show: true,
               plain: false,
               width:60,
-
               disabled: false,
               method: (index, row) => {
                 this.handleDel(index, row)
@@ -102,11 +128,32 @@
         var param={
           pageSize:10,
           pageNum:1
-        }
+        };
         User.userList(param).then((res)=>{
          //console.log(res);
           this.list=res.data.rows;
-          console.log(this.list);
+          //console.log(this.list);
+        })
+      },
+      //更新用户数据
+      updateUserInfo(param){
+        User.updateUserInfo(param).then((res)=>{
+          let data=res.data;
+          if(data.code==1){
+            alert(data.msg);
+          }
+          //console.log(res);
+        })
+      },
+      getUserInfo(param){
+
+        User.getUserInfo(param).then((res)=>{
+         console.log('getUserInfo');
+          console.log(res);
+          let data=res.data;
+          if(data.code==1){
+            this.userInfo=data.data;
+          }
         })
       },
       // 选中行
@@ -116,12 +163,30 @@
       // 编辑
       handleEdit (index, row) {
         console.log(' index:', index)
-        console.log(' row:', row)
+        console.log(' row:', row);
+        this.userEditModal=true;
+        this.getUserInfo({"id":row.id})
       },
       // 删除
       handleDel (index, row) {
         console.log(' index:', index)
         console.log(' row:', row)
+      },
+      //关闭modal
+      closeModal(){
+        this.userEditModal=false;
+        this.userAddModal=false;
+      },
+      //保存用户信息
+      saveUserInfo(){
+
+        this.updateUserInfo(this.userInfo)
+      },
+      resetUserInfo(){
+        this.userInfo={}
+      },
+      addUser(){
+        this.userAddModal=true;
       }
     }
   }

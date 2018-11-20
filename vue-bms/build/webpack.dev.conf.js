@@ -65,12 +65,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     //第二步找到devServer,在里面添加
     before(app) {
 
-      app.get('/api/getList', (req, res) => {
+      /*app.get('/api/getList', (req, res) => {
         res.json({
           errno: 0,
           data: deptTableList
         })//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
-      })
+      })*/
 
     }
 

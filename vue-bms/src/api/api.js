@@ -23,12 +23,22 @@ export const User = {
       axios.post('/user_getlist',qs.stringify(params)).then((response)=>{
         let res=response;
         resolve(res)
-        /*if(res.code=='1'){ //成功
-          resolve(res);
-        }
-        else{//失败
-          reject(res)
-        }*/
+      })
+    })
+  },
+  updateUserInfo(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/user_addOrUpdate',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+  getUserInfo(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/user_getUserById',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
       })
     })
   }

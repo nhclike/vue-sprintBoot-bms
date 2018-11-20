@@ -14,7 +14,8 @@
                          :key='column.label'
                          :label="column.label"
                          :align="column.align"
-                         :width="column.width">
+                         :width="column.width"
+                       >
           <template slot-scope="scope">
             <template v-if="!column.render">
               <template v-if="column.formatter">
