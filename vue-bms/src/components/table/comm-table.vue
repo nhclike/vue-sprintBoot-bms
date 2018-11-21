@@ -52,6 +52,18 @@
       </el-table-column>
       <!--endregion-->
     </el-table>
+    <div class="pagination">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="cur_page"
+        :page-sizes="[10, 20, 50]"
+        :page-size="cur_page_size"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 <!--endregion-->
@@ -73,7 +85,11 @@
           stripe: false, // 是否为斑马纹 table
           highlightCurrentRow: false // 是否要高亮当前行
         },
-      } // table 表格的控制参数
+      }, // table 表格的控制参数
+      total:{   //表格总数
+        type:Number,
+        default:0
+      }
     },
     //组件
     components: {
@@ -101,25 +117,33 @@
     // 数据
     data () {
       return {
-        pageIndex: 1,
-        multipleSelection: [] // 多行选中
+        cur_page_size:10,
+        cur_page:1,
+        multipleSelection:[]  //多行选中
       }
     },
     mounted () {
+
     },
     computed: {
+
     },
     methods: {
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+        this.cur_page_size=val;
+        this.$emit('handleSizeChange',val)
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+        this.cur_page=val;
+        this.$emit('handleCurrentChange',val)
 
+      },
       // 多行选中
       handleSelectionChange (val) {
         this.multipleSelection = val
         this.$emit('handleSelectionChange', val)
-      },
-      // 显示 表格操作弹窗
-      showActionTableDialog () {
-        console.log(4444)
-        this.$emit('handelAction')
       }
     }
   }

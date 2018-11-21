@@ -10,7 +10,7 @@
       <el-button type="primary" icon="search" >查询</el-button>
       <el-button type="primary" icon="search" @click="add">新增</el-button>
     </div>
-    <el-table :data="tableData" border style="width: 100%" >
+    <el-table :data="tData" border style="width: 100%" >
       <el-table-column prop="deptNo" label="部门编号"  >
       </el-table-column>
       <el-table-column prop="deptName" label="部门名称">
@@ -20,10 +20,18 @@
       <el-table-column prop="deptManager" label="部门负责人" >
       </el-table-column>
       <el-table-column prop="deptStatus" label="部门状态" >
+        <template slot-scope="scope">
+          <template v-if="scope.row.deptStatus==='1'">
+            <el-button type="success" plain>启用</el-button>
+          </template>
+          <template v-else>
+            <el-button type="danger" plain>禁用</el-button>
+          </template>
+        </template>
       </el-table-column>
       <el-table-column label="操作" width="180">
         <template slot-scope="scope">
-          <el-button size="small"  @click="edit(scope.row)">编辑</el-button>
+          <el-button size="small" type="success"  @click="edit(scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="del(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -33,8 +41,8 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="cur_page"
-        :page-sizes="[20, 50, 100]"
-        :page-size="20"
+        :page-sizes="[10, 20, 50]"
+        :page-size="cur_page_size"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
         >
@@ -44,6 +52,12 @@
 </template>
 
 <script>
+  /**
+   * 针对此表格插件的说明
+   * 1table数据一次性请求回来，分页由前端计算属性来完成
+   * 2增删改操作将事件广播出去在组件外做处理
+   *
+   * **/
   import { Dept } from '../../api/api'
 
   export default {
@@ -51,27 +65,28 @@
       return {
         url: '',
         tableData: [],
-        cur_page: 1,
-        cur_page_size:20,
+        cur_page:1,
+        cur_page_size:10,
         deptNo:'',
         deptName:'',
         deptStatus: '',
-        params:{}
+        params:{},
+        total:0
       }
     },
     created(){
       this.getData();
     },
     computed: {
-      total(){
-        return this.tableData.length;
+      tData(){
+        return this.tableData.slice((this.cur_page-1)*this.cur_page_size,this.cur_page*this.cur_page_size)
       }
     },
     methods: {
       getData(){
         this.params={
-          pageSize:this.cur_page_size,
-          pageNum:this.cur_page,
+         /* pageSize:this.cur_page_size,
+          pageNum:this.cur_page,*/
           deptNo:this.deptNo,
           deptName:this.deptName,
           deptStatus:this.deptStatus
@@ -79,9 +94,10 @@
         Dept.deptList(this.params).then((res)=>{
          // console.log(res);
           this.tableData=res.data.rows;
+          this.total=this.tableData.length;
         })
       },
-      //更新用户数据
+      //更新部门数据
       updateDeptInfo(param){
         Dept.updateDeptInfo(param).then((res)=>{
           let data=res.data;
@@ -101,12 +117,10 @@
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
         this.cur_page_size=val;
-        this.getData()
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
         this.cur_page=val;
-        this.getData()
 
       },
       edit(params){

@@ -10,9 +10,11 @@
       <el-form-item label="部门负责人">
         <el-input v-model="deptInfo.deptManager"></el-input>
       </el-form-item>
-
-      <el-form-item label="部门描述">
-        <el-input type="textarea" v-model="deptInfo.descr"></el-input>
+      <el-form-item label="部门类型">
+        <el-input v-model="deptInfo.deptType"></el-input>
+      </el-form-item>
+      <el-form-item label="部门状态">
+        <el-input  v-model="deptInfo.deptStatus"></el-input>
       </el-form-item>
     </el-form>
 	</div>

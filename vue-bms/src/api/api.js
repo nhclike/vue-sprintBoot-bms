@@ -20,7 +20,7 @@ export const loginApi = {
 export const User = {
   userList(params){
     return new Promise(function(resolve, reject){
-      axios.post('/user_getlist',qs.stringify(params)).then((response)=>{
+      axios.post('/user/user_getlist',qs.stringify(params)).then((response)=>{
         let res=response;
         resolve(res)
       })
@@ -28,7 +28,7 @@ export const User = {
   },
   updateUserInfo(params){
     return new Promise(function(resolve, reject){
-      axios.post('/user_addOrUpdate',qs.stringify(params)).then((response)=>{
+      axios.post('/user/user_addOrUpdate',qs.stringify(params)).then((response)=>{
         let res=response;
         resolve(res)
       })
@@ -36,7 +36,7 @@ export const User = {
   },
   getUserInfo(params){
     return new Promise(function(resolve, reject){
-      axios.post('/user_getUserById',qs.stringify(params)).then((response)=>{
+      axios.post('/user/user_getUserById',qs.stringify(params)).then((response)=>{
         let res=response;
         resolve(res)
       })
@@ -44,7 +44,7 @@ export const User = {
   },
   deleteUserInfo(params){
     return new Promise(function(resolve, reject){
-      axios.post('/user_del',qs.stringify(params)).then((response)=>{
+      axios.post('/user/user_del',qs.stringify(params)).then((response)=>{
         let res=response;
         resolve(res)
       })
@@ -55,7 +55,7 @@ export const User = {
 export const Dept={
   deptList(params){
     return new Promise(function(resolve, reject){
-      axios.post('/dept_getList',qs.stringify(params)).then((response)=>{
+      axios.post('/dept/dept_getList',qs.stringify(params)).then((response)=>{
         let res=response;
         resolve(res)
       })
@@ -63,7 +63,7 @@ export const Dept={
   },
   updateDeptInfo(params){
     return new Promise(function(resolve, reject){
-      axios.post('/dept_addOrUpdate',qs.stringify(params)).then((response)=>{
+      axios.post('/dept/dept_addOrUpdate',qs.stringify(params)).then((response)=>{
         let res=response;
         resolve(res)
       })
@@ -71,7 +71,7 @@ export const Dept={
   },
   getDeptInfo(params){
     return new Promise(function(resolve, reject){
-      axios.post('/dept_getDeptById',qs.stringify(params)).then((response)=>{
+      axios.post('/dept/dept_getDeptById',qs.stringify(params)).then((response)=>{
         let res=response;
         resolve(res)
       })
@@ -79,7 +79,7 @@ export const Dept={
   },
   deleteDeptInfo(params){
     return new Promise(function(resolve, reject){
-      axios.post('/dept_del',qs.stringify(params)).then((response)=>{
+      axios.post('/dept/dept_del',qs.stringify(params)).then((response)=>{
         let res=response;
         resolve(res)
       })

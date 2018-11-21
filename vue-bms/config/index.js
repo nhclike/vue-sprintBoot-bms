@@ -21,46 +21,17 @@ module.exports = {
         target:'http://127.0.0.1:8081', //处理跨域服务代理
         secure:false
       },
-      '/dept_getList':{
+      '/dept/**':{
         changeOrigin: true,
         target:'http://127.0.0.1:8081', //处理跨域服务代理
         secure:false
       },
-      '/dept_addOrUpdate':{
+      '/user/**':{
         changeOrigin: true,
         target:'http://127.0.0.1:8081', //处理跨域服务代理
         secure:false
       },
-      '/dept_getDeptById':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
-      '/dept_del':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
-      '/user_getlist':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
-      '/user_addOrUpdate':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
-      '/user_getUserById':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
-      '/user_del':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
+
     },
 
     // Various Dev Server settings

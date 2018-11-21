@@ -75,7 +75,7 @@
       //保存用户信息
       saveDeptInfo(){
         //向数据库加入数据
-        this.$refs.bTable.updateUserInfo(this.deptInfo);
+        this.$refs.bTable.updateDeptInfo(this.deptInfo);
         //关闭modal
         this.closeModal();
         //刷新table
