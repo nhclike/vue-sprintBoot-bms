@@ -6,27 +6,22 @@
     </div>
     <i-table :list="list"
              @handleSelectionChange="handleSelectionChange"
+             @handleSizeChange="handleSizeChange"
+             @handleCurrentChange="handleCurrentChange"
              :options="options"
              :columns="columns"
              :operates="operates"
+             :total="total"
     >
     </i-table>
     <i-dialog v-bind:mdShow="userEditModal" width="500px"  title="用户编辑" v-on:close="closeModal">
       <div slot="message">
-        <user-form :userInfo="userInfo"></user-form>
-      </div>
-      <div slot="btnGroup">
-        <el-button type="primary" @click="saveUserInfo">保存</el-button>
-        <el-button type="success" @click="resetUserInfo">重置</el-button>
+        <user-form ref="userEditForm" :userInfo="userInfo" @saveUserInfo="saveUserInfo" @resetUserInfo="resetUserInfo" :resetBtnShow="false"></user-form>
       </div>
     </i-dialog>
     <i-dialog v-bind:mdShow="userAddModal" title="用户新增" v-on:close="closeModal">
       <div slot="message">
-        <user-form :userInfo="userInfo"></user-form>
-      </div>
-      <div slot="btnGroup">
-        <el-button type="primary" @click="saveUserInfo">保存</el-button>
-        <el-button type="success" @click="resetUserInfo">重置</el-button>
+        <user-form ref="userAddForm" :userInfo="userInfo" :userNameDisabled="addUserNameDisabled"></user-form>
       </div>
     </i-dialog>
 	</div>
@@ -48,8 +43,10 @@
       return {
         userEditModal:false,
         userAddModal:false,
+        addUserNameDisabled:false,
         userEditId:'',
         userInfo:{},
+        total:0,
         list: [], // table数据
         options: {
           stripe: true, // 是否为斑马纹 table
@@ -119,7 +116,10 @@
               }
             }
           ]
-        } // 列操作按钮
+        } ,// 列操作按钮
+        pageSize:10,
+        pageNum:1
+
       }
     },
     created(){
@@ -129,12 +129,13 @@
       //请求用户数据
       getUserListDate(){
         var param={
-          pageSize:10,
-          pageNum:1
+          pageSize:this.pageSize,
+          pageNum:this.pageNum
         };
         User.userList(param).then((res)=>{
           this.list=res.data.rows;
-        })
+          this.total=res.data.total;
+        });
       },
       //更新用户数据
       updateUserInfo(param){
@@ -151,6 +152,8 @@
           let data=res.data;
           if(data.code==1){
             this.userInfo=data.data;
+            console.log(this.userInfo);
+            this.userInfo.password='';
           }
         })
       },
@@ -158,24 +161,34 @@
       deleteUserInfo(param){
         User.deleteUserInfo(param).then((res)=>{
           let data=res.data;
-          console.log(data)
+          //console.log(data)
         })
       },
       // 选中行
       handleSelectionChange (val) {
-        console.log('val:', val)
+        //console.log('handleSelectionChange:', val)
+      },
+      //改变pageSize
+      handleSizeChange(val){
+        this.pageSize=val;
+        this.getUserListDate();
+      },
+      //改变当前页
+      handleCurrentChange(val){
+        this.pageNum=val;
+        this.getUserListDate();
       },
       // 编辑
       handleEdit (index, row) {
-        console.log(' index:', index)
-        console.log(' row:', row);
+        //console.log(' index:', index)
+        //console.log(' row:', row);
         this.userEditModal=true;
         this.getUserInfo({"id":row.id})
       },
       // 删除
       handleDel (index, row) {
-        console.log(' index:', index)
-        console.log(' row:', row);
+        //console.log(' index:', index)
+        //console.log(' row:', row);
         this.deleteUserInfo({"id":row.id});
         //刷新table
         this.getUserListDate();
@@ -185,6 +198,9 @@
       closeModal(){
         this.userEditModal=false;
         this.userAddModal=false;
+        this.$refs.userAddForm.resetForm('userForm');
+        this.$refs.userEditForm.resetForm('userForm')
+
       },
       //保存用户信息
       saveUserInfo(){

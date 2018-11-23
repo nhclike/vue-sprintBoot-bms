@@ -10,16 +10,16 @@
       <el-button type="primary" icon="search" >查询</el-button>
       <el-button type="primary" icon="search" @click="add">新增</el-button>
     </div>
-    <el-table :data="tData" border style="width: 100%" >
-      <el-table-column prop="deptNo" label="部门编号"  >
+    <el-table :data="tData" border   style="width: 100%" >
+      <el-table-column prop="deptNo" label="部门编号" align="center" >
       </el-table-column>
-      <el-table-column prop="deptName" label="部门名称">
+      <el-table-column prop="deptName" label="部门名称" align="center">
       </el-table-column>
-      <el-table-column prop="deptType" label="部门类型" >
+      <el-table-column prop="deptType" label="部门类型" align="center">
       </el-table-column>
-      <el-table-column prop="deptManager" label="部门负责人" >
+      <el-table-column prop="deptManager" label="部门负责人" align="center" >
       </el-table-column>
-      <el-table-column prop="deptStatus" label="部门状态" >
+      <el-table-column prop="deptStatus" label="部门状态" align="center">
         <template slot-scope="scope">
           <template v-if="scope.row.deptStatus==='1'">
             <el-button type="success" plain>启用</el-button>
@@ -29,7 +29,7 @@
           </template>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="180"  align="center">
         <template slot-scope="scope">
           <el-button size="small" type="success"  @click="edit(scope.row)">编辑</el-button>
           <el-button size="small" type="danger" @click="del(scope.row)">删除</el-button>

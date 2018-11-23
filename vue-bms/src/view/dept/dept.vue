@@ -1,23 +1,16 @@
 <template>
   <div>
     <basic-table ref="bTable" @add="addDept" @delete="deleteDept" @edit="editDept"></basic-table>
-    <i-dialog v-bind:mdShow="deptEditModal" title="编辑部门" @close="closeModal">
+    <i-dialog v-bind:mdShow="deptEditModal" title="编辑部门" @close="closeModal"  >
       <div slot="message">
-        <dept-form :deptInfo="deptInfo"></dept-form>
-      </div>
-      <div slot="btnGroup">
-        <el-button type="primary" @click="saveDeptInfo">保存</el-button>
-        <el-button type="success" @click="resetDeptInfo">重置</el-button>
+        <dept-form :deptInfo="deptInfo" @saveDeptInfo="saveDeptInfo" :resetBtnShow="false"></dept-form>
       </div>
     </i-dialog>
-    <i-dialog v-bind:mdShow="deptAddModal" title="新增部门" @close="closeModal">
+    <i-dialog v-bind:mdShow="deptAddModal" title="新增部门" @close="closeModal" >
       <div slot="message">
-        <dept-form :deptInfo="deptInfo"></dept-form>
+        <dept-form :deptInfo="deptInfo" @saveDeptInfo="saveDeptInfo"></dept-form>
       </div>
-      <div slot="btnGroup">
-        <el-button type="primary" @click="saveDeptInfo">保存</el-button>
-        <el-button type="success" @click="resetDeptInfo">重置</el-button>
-      </div>
+
     </i-dialog>
   </div>
 </template>
@@ -41,51 +34,51 @@
       DeptForm
     },
     methods:{
+      //增加部门
       addDept(){
         this.deptInfo={};
         this.deptAddModal=true;
       },
+      //编辑部门
       editDept(param){
         //console.log(param);
         this.deptEditModal=true;
-
         this.getDeptInfo({"id":param.deptId});
-
       },
+      //删除部门
       deleteDept(param){
         //console.log(param);
         this.$refs.bTable.deleteDeptInfo({"id":param.deptId});
         this.$refs.bTable.getData();
       },
-      //根据用户id拿到用户信息
+      //根据用户id拿到部门信息
       getDeptInfo(param){
         Dept.getDeptInfo(param).then((res)=>{
           let data=res.data;
           if(data.code==1){
             this.deptInfo=data.data;
-            console.log(this.deptInfo);
+            //console.log(this.deptInfo);
           }
         })
       },
+      //关闭modal
       closeModal(){
         this.deptEditModal=false;
         this.deptAddModal=false;
+      },
+      //保存部门信息
+      saveDeptInfo(valid){
+        console.log(valid);
+        if(valid){ //表单验证通过
+          //向数据库加入数据
+          this.$refs.bTable.updateDeptInfo(this.deptInfo);
+          //关闭modal
+          this.closeModal();
+          //刷新table
+          this.$refs.bTable.getData();
+        }
 
-      },
-      //保存用户信息
-      saveDeptInfo(){
-        //向数据库加入数据
-        this.$refs.bTable.updateDeptInfo(this.deptInfo);
-        //关闭modal
-        this.closeModal();
-        //刷新table
-        this.$refs.bTable.getData();
-
-      },
-      //重置用户信息
-      resetDeptInfo(){
-        this.deptInfo={}
-      },
+      }
     }
   }
 </script>

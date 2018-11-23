@@ -10,9 +10,9 @@
       center
     >
       <slot name="message"></slot>
-      <span slot="footer" class="dialog-footer">
+      <!--<span slot="footer" class="dialog-footer">
         <slot name="btnGroup"></slot>
-      </span>
+      </span>-->
     </el-dialog>
   </div>
 </template>
