@@ -31,7 +31,11 @@ module.exports = {
         target:'http://127.0.0.1:8081', //处理跨域服务代理
         secure:false
       },
-
+      '/businessManage/**':{
+        changeOrigin: true,
+        target:'http://127.0.0.1:8081', //处理跨域服务代理
+        secure:false
+      },
     },
 
     // Various Dev Server settings

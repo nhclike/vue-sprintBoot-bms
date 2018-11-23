@@ -12,8 +12,9 @@
       </el-form-item>
       <el-form-item label="部门类型" prop="deptType">
         <el-select v-model="deptInfo.deptType" placeholder="请选择部门类型" style="width: 100%;">
-          <el-option label="研发部" value="1"></el-option>
-          <el-option label="市场部" value="2"></el-option>
+          <el-option label="售前" value="1"></el-option>
+          <el-option label="销售" value="2"></el-option>
+          <el-option label="售后" value="3"></el-option>
 
         </el-select>
       </el-form-item>

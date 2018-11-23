@@ -31,14 +31,14 @@
 @import "./../less/comm/variable.less";
   .content{
     position: fixed;
-    top:50px;
+    top:@top_height;
     bottom: 0;
     right: 0;
     left: 0;
     .left{
       float: left;
       height: 100%;
-      width: 250px;
+      width: @left_width;
     }
     .right{
       position: fixed;

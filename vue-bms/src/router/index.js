@@ -1,23 +1,30 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Login from '@/view/login'
-import Index from '@/view/index'
-import Indexbf from '@/view/indexbf'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-import User from '@/view/user/user'
-import Dept from '@/view/dept/dept'
-import Role from '@/view/role/role'
-import BusinessManage from '@/view/businessManage/businessManage'
+import Login from '@/view/login';
+import Index from '@/view/index';
 
-Vue.use(Router)
+
+import User from '@/view/user/user';
+import Dept from '@/view/dept/dept';
+import Role from '@/view/role/role';
+import BusinessManage from '@/view/businessManage/businessManage';
+import BusinessManageAdd from '@/view/businessManage/businessManageAdd';
+
+import HomePage from '@/view/homePage/homePage';
+import Proclamation from '@/view/proclamation/proclamation';
+
+
+
+import HelloWorld from '@/components/HelloWorld';
+import Indexbf from '@/view/indexbf';
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path:'/',
+      redirect: '/login'
     },
     {
       path: '/login',
@@ -25,18 +32,33 @@ export default new Router({
       component:Login
     },
     {
-      path: '/indexbf',
-      name: 'Indexbf',
-      component:Indexbf
-    },
-    {
       path: '/index',
       name: 'Index',
       component:Index,
       children:[
         {
+          path:'/',
+          redirect: '/index/BusinessManage'
+        },
+        {
           path:'BusinessManage',
-          component:BusinessManage
+          component:BusinessManage,
+          children:[
+            {
+              path:':BusinessManageAdd',
+              component:BusinessManageAdd
+            },
+          ]
+        },
+
+
+        {
+          path:'HomePage',
+          component:HomePage
+        },
+        {
+          path:'Proclamation',
+          component:Proclamation
         },
         {
           path:'user',
@@ -51,6 +73,16 @@ export default new Router({
           component:Role
         }
       ]
-    }
+    },
+    {
+      path: '/HelloWorld',
+      name: 'HelloWorld',
+      component: HelloWorld
+    },
+    {
+      path: '/indexbf',
+      name: 'Indexbf',
+      component:Indexbf
+    },
   ]
 })

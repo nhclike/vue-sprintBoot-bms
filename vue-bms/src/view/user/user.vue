@@ -46,7 +46,9 @@
         addUserNameDisabled:false,
         userEditId:'',
         userInfo:{},
-        total:0,
+        total:0,  //table总数
+        pageSize:10,
+        pageNum:1,
         list: [], // table数据
         options: {
           stripe: true, // 是否为斑马纹 table
@@ -117,8 +119,7 @@
             }
           ]
         } ,// 列操作按钮
-        pageSize:10,
-        pageNum:1
+
 
       }
     },

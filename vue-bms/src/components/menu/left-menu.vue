@@ -24,6 +24,21 @@
         flag:true,
         menuData:[
           {
+            id:'Index',
+            name:"首页",
+            url:'',
+            child:[
+              {
+                name:'公告通知',
+                url:'HomePage',
+              },
+              {
+                name:'公告管理',
+                url:'Proclamation',
+              }
+            ]
+          },
+          {
             id:'BusinessManage',
             name:"商机管理",
             url:'',
@@ -89,7 +104,8 @@
     z-index:999;
     width:@menu_width;
     height: 100%;
-    padding-right: 20px;
+    padding-right: 5px;
+    overflow-y:scroll;
     ul.mainMenu{
       text-align: center;
       height: 100%;

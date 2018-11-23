@@ -87,4 +87,14 @@ export const Dept={
   }
 }
 
+export const BusinessManage={
+  BMList(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/businessManage/businessManage_getlist',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  }
+}
 

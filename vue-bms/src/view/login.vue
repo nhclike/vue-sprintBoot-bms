@@ -65,7 +65,7 @@
             }
         },
         created(){
-
+          this.keyupSubmit()
         },
         methods:{
           fnLogin(){
@@ -84,6 +84,14 @@
               }
 
             })
+          },
+          keyupSubmit(){
+            document.onkeydown=e=>{
+              let _key=window.event.keyCode;
+              if(_key===13){
+                this.fnLogin()
+              }
+            }
           },
           ...mapMutations({
             setUserName:'SET_USERNAME'
