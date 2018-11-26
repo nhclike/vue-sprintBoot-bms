@@ -89,42 +89,38 @@
 
 <style  scoped lang="less">
   @import "./../../less/comm/variable.less";
-
-  .Menu{
-  @menu_bg_color:#EEF5FF;
-  @content_bg_color:#fff;
+  @menu_bg_color:@theme_color_dark;  /*选择项背景颜色*/
+  @content_bg_color:@theme_color;
   @title_bg_color:#1D82ED;
   @sub_text_color:#1D82ED;
-  @menu_width:260px;
-  @menu_height:56px;
+  @menu_height:40px;
+  .Menu{
     text-align: center;
     position: absolute;
     top:0;
     left:0;
     z-index:999;
-    width:@menu_width;
+    width:@left_width;
     height: 100%;
-    padding-right: 5px;
-    overflow-y:scroll;
+    overflow-y:hidden;
     ul.mainMenu{
       text-align: center;
       height: 100%;
-      background: @text_color;
+      background: @content_bg_color;
       li{
         overflow: hidden;
         margin-bottom: 10px;
         div.titleMenu{
           width: 100%;
           padding: 0 15px 0 45px;//此处需对应动态调整，建议0不动
-          background: @title_bg_color;
+          background:@menu_bg_color ;
           color: @text_color;
           cursor: pointer;
           height: @menu_height;
           line-height: @menu_height;
           text-align: center;
           font-weight: normal;
-
-          font-size:@text_font_size_md;
+          font-size:@text_font_size;
           i.pull-left{
             margin-top:16px;//此处需对应动态调整
             margin-right: 15px;//此处需对应动态调整
@@ -155,8 +151,8 @@
             }
 
           }
-          .tab-item.router-link-exact-active.router-link-active{
-            background-color: @theme_color;
+          .tab-item.router-link-active{
+            background-color: @theme_color_blue;
             span{
               color: #fff;
             }

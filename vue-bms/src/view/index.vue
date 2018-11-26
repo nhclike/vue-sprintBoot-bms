@@ -6,6 +6,7 @@
         <left-menu></left-menu>
       </div>
       <div class="right">
+
         <router-view/>
 
       </div>
@@ -42,11 +43,11 @@
     }
     .right{
       position: fixed;
-      top:50px;
+      top:@top_height;
       bottom: 0;
-      left: 250px;
+      left:  @left_width;
       right: 0;
-      background-color: #ddd;
+      background-color:@bg_color;
     }
   }
 </style>

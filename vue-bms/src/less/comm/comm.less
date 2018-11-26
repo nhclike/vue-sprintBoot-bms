@@ -1,21 +1,14 @@
 @import "./reset";
 @import "./variable";
-/****************button*****************/
-button.btn.btn-md{
-	font-size: @text_font_size;
-	padding: 3px 22px;
+/****************breadcrumb*****************/
+.el-breadcrumb__item{
+  .el-breadcrumb__item__inner{
+    height: @breadcrumb_height;
+    line-height: @breadcrumb_height;
+    font-size: @breadcrumb_font_size !important;
+    color:@breadcrumb_color !important;
+  }
 }
-button.btn.btn-blue-bg{
-	background-color: @theme_color;
-	color: #fff;
-}
-button.btn.btn-blue{
-	color: @theme_color;
-	background: none;
-	border: 1px solid @theme_color;
-	border-radius: 5px;
-}
-
 /****************公用class*****************/
 .model_center{
 	position: fixed;
@@ -23,8 +16,7 @@ button.btn.btn-blue{
 	left:50%;
 	transform: translate(-50%,-50%);
 	-webkit-transform:translate(-50%,-50%);
-	/*margin-top: -181px;
-	margin-left: -462px;*/
+
 }
 
 

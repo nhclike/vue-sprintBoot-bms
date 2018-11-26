@@ -53,20 +53,12 @@ form {
 a {
   text-decoration: none;
 }
-/****************button*****************/
-button.btn.btn-md {
-  font-size: 18px;
-  padding: 3px 22px;
-}
-button.btn.btn-blue-bg {
-  background-color: #30A7FF;
-  color: #fff;
-}
-button.btn.btn-blue {
-  color: #30A7FF;
-  background: none;
-  border: 1px solid #30A7FF;
-  border-radius: 5px;
+/****************breadcrumb*****************/
+.el-breadcrumb__item .el-breadcrumb__item__inner {
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px !important;
+  color: #000 !important;
 }
 /****************公用class*****************/
 .model_center {
@@ -75,8 +67,6 @@ button.btn.btn-blue {
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
-  /*margin-top: -181px;
-	margin-left: -462px;*/
 }
 .no-margin {
   margin: 0 !important;

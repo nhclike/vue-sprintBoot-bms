@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="BMcontainer">
     <basic-form></basic-form>
 
   </div>
@@ -22,7 +22,7 @@
 
 <style scoped lang="less">
   @import "./../../less/comm/variable.less";
-.container{
+.BMcontainer{
   z-index: 1000;
   background: #ddd;
   position: fixed;
