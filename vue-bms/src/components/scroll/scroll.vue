@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrapper">
+  <div ref="wrapper" style="overflow: hidden">
     <slot></slot>
   </div>
 </template>
@@ -45,6 +45,11 @@
         default: DIRECTION_V
       }
     },
+    created(){
+      this.$nextTick(()=>{
+        this._initScroll();
+      })
+    },
     mounted() {
       setTimeout(() => {
         this._initScroll()
@@ -58,6 +63,10 @@
         this.scroll = new BScroll(this.$refs.wrapper, {
           probeType: this.probeType,
           click: this.click,
+          scrollbar: {
+            fade: false,
+            interactive: true // 1.8.0 新增
+          },
           eventPassthrough: this.direction === DIRECTION_V ? DIRECTION_H : DIRECTION_V
         })
 
@@ -107,6 +116,6 @@
   }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
+<style scoped lang="less" >
 
 </style>

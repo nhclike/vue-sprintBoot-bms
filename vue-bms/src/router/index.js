@@ -38,7 +38,7 @@ export default new Router({
       children:[
         {
           path:'/',
-          redirect: '/index/BusinessManage'
+          redirect: '/index/HomePage'
         },
         {
           path:'BusinessManage',

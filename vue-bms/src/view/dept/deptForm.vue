@@ -15,7 +15,6 @@
           <el-option label="售前" value="1"></el-option>
           <el-option label="销售" value="2"></el-option>
           <el-option label="售后" value="3"></el-option>
-
         </el-select>
       </el-form-item>
       <el-form-item label="部门状态" prop="deptStatus">
