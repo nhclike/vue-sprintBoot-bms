@@ -5,16 +5,19 @@ import Login from '@/view/login';
 import Index from '@/view/index';
 
 
-import User from '@/view/user/user';
-import Dept from '@/view/dept/dept';
-import Role from '@/view/role/role';
-import BusinessManage from '@/view/businessManage/businessManage';
-import BusinessManageAdd from '@/view/businessManage/businessManageAdd';
+
+
 
 import HomePage from '@/view/homePage/homePage';
 import Proclamation from '@/view/proclamation/proclamation';
+import CompanyStatistics from '@/view/statistics/companyStatistics'
+import PersonalStatistics from '@/view/statistics/personalStatistics'
 
-
+import BusinessManage from '@/view/businessManage/businessManage';
+import BusinessManageAdd from '@/view/businessManage/businessManageAdd';
+import User from '@/view/user/user';
+import Dept from '@/view/dept/dept';
+import Role from '@/view/role/role';
 
 import HelloWorld from '@/components/HelloWorld';
 import Indexbf from '@/view/indexbf';
@@ -41,6 +44,22 @@ export default new Router({
           redirect: '/index/HomePage'
         },
         {
+          path:'HomePage',
+          component:HomePage
+        },
+        {
+          path:'Proclamation',
+          component:Proclamation
+        },
+        {
+          path:'CompanyStatistics',
+          component:CompanyStatistics
+        },
+        {
+          path:'PersonalStatistics',
+          component:PersonalStatistics
+        },
+        {
           path:'BusinessManage',
           component:BusinessManage,
           children:[
@@ -49,16 +68,6 @@ export default new Router({
               component:BusinessManageAdd
             },
           ]
-        },
-
-
-        {
-          path:'HomePage',
-          component:HomePage
-        },
-        {
-          path:'Proclamation',
-          component:Proclamation
         },
         {
           path:'user',

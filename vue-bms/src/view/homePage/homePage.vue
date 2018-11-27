@@ -2,7 +2,9 @@
 	<div>
     <i-breadcrumb>
       <div slot="breadcrumb">
-        <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/index/CompanyStatistics' }">商机统计</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/index/CompanyStatistics' }">个人统计</el-breadcrumb-item>
+
       </div>
     </i-breadcrumb>
     <div class="indexContainer">
@@ -27,7 +29,7 @@
         <el-col :span="8">
           <i-card title="通知" >
             <div slot="cardContext">
-              <div :style="cardBodyStyle">
+              <div>
                   <el-table
                     :data="tableData"
                     style="width: 100%"

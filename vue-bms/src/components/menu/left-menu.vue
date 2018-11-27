@@ -39,6 +39,21 @@
             ]
           },
           {
+            id:'BusinessStatistics',
+            name:"商机统计",
+            url:'',
+            child:[
+              {
+                name:'公司统计',
+                url:'CompanyStatistics',
+              },
+              {
+                name:'个人统计',
+                url:'PersonalStatistics',
+              }
+            ]
+          },
+          {
             id:'BusinessManage',
             name:"商机管理",
             url:'',
@@ -49,6 +64,7 @@
               }
             ]
           },
+
           {
             id:'SystemManage',
             name:'系统管理',
