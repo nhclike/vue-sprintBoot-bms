@@ -1,9 +1,7 @@
 <template>
-	<div>
-    <div id="main" style="width:100%;height:100%">
+  <div id="trendMain" style="width:100%;height:100%">
 
-    </div>
-	</div>
+  </div>
 </template>
 
 <script>
@@ -15,7 +13,7 @@
       var echarts = require('echarts');
 
 // 基于准备好的dom，初始化echarts实例
-      var myChart = echarts.init(document.getElementById('main'));
+      var myChart = echarts.init(document.getElementById('trendMain'));
       var colors = ['#3aa0ff', '#2fc25b'];
       var option = {
         color: colors,
