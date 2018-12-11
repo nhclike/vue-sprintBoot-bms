@@ -35,3 +35,29 @@
 	display: block;
 	clear: both;
 }
+.indexContainer{
+  position: fixed;
+  top:@top_height;
+  bottom: 0;
+  left: @left_width;
+  right: 0;
+  padding:20px;
+  .contextContainer{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    .top{
+      position: relative;
+      height:50px;
+    }
+    .tableContainer{
+      position: absolute;
+      top:50px;
+      bottom: 20px;
+      width: 100%;
+      left: 0;
+    }
+  }
+}
+

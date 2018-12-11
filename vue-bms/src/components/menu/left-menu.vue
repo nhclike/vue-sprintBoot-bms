@@ -1,23 +1,29 @@
 <template>
 	<div>
     <div class="text-center Menu" >
-      <ul class="mainMenu" id="tab_list">
-        <li v-for="item,index in menuData" :key="item.id">
-          <div class="titleMenu clearfloat">
-            <span class="pull-left" @click="toggleShow(index)">{{item.name}}</span>
-          </div>
-          <ul class="subMenu" ref="subMenu">
-            <router-link tag="li" class="tab-item" v-for="(subItem,subIndex) in item.child" :key="subItem.id" :to="'/index/'+subItem.url">
-              <span class="tab-link">{{subItem.name}}</span>
-            </router-link>
+      <scroll :data="menuData" ref="menuScroll" class="Scroll">
+        <div>
+          <ul class="mainMenu" id="tab_list">
+            <li v-for="item,index in menuData" :key="item.id">
+              <div class="titleMenu clearfloat">
+                <span class="pull-left" @click="toggleShow(index)">{{item.name}}</span>
+              </div>
+              <ul class="subMenu" ref="subMenu">
+                <router-link tag="li" class="tab-item" v-for="(subItem,subIndex) in item.child" :key="subItem.id" :to="'/index/'+subItem.url">
+                  <span class="tab-link">{{subItem.name}}</span>
+                </router-link>
+              </ul>
+            </li>
           </ul>
-        </li>
-      </ul>
+        </div>
+      </scroll>
     </div>
 	</div>
 </template>
 
 <script >
+  import Scroll from '@/components/scroll/scroll'
+
   export default {
     data(){
       return {
@@ -79,16 +85,26 @@
                 url:'dept',
               },
               {
-                name:'角色权限管理',
+                name:'角色管理',
                 url:'role',
+              },
+              {
+                name:'权限管理',
+                url:'privilege',
               }
             ]
           }
         ]
       }
     },
+    components:{
+      Scroll
+    },
     created(){
 
+    },
+    mounted(){
+      this.refreshScroll();
     },
     methods:{
       toggleShow(index){
@@ -98,6 +114,14 @@
         else{
           this.$refs.subMenu[index].style.display='none';
         }
+      },
+      //刷新滚动条
+      refreshScroll() {
+        setTimeout(() => {
+          if (this.menuData.length > 0) {
+            this.$refs.menuScroll.refresh();
+          }
+        }, 20)
       }
     }
   }
@@ -177,4 +201,6 @@
       }
     }
   }
+
+
 </style>

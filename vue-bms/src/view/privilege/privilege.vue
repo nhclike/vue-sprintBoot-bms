@@ -1,10 +1,16 @@
 <template>
   <div>
+    <!--<i-breadcrumb>
+      <div slot="breadcrumb">
+        <el-breadcrumb-item :to="{ path: '/index/CompanyStatistics' }">系统管理</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/index/CompanyStatistics' }">权限管理</el-breadcrumb-item>
+
+      </div>
+    </i-breadcrumb>-->
     <div class="indexContainer">
       <div class="contextContainer">
         <div class="top">
-          <el-button id="addBtn" type="primary" @click="addRole">新增</el-button>
-
+          <el-button id="addBtn" type="primary" @click="addPrivilege">新增</el-button>
         </div>
         <div class="tableContainer">
           <i-table :list="list"
@@ -18,42 +24,44 @@
           >
           </i-table>
         </div>
-
       </div>
     </div>
 
-    <i-dialog v-bind:mdShow="roleEditModal" width="500px"  title="角色编辑" v-on:close="closeModal">
+    <i-dialog v-bind:mdShow="privilegeEditModal" width="500px"  title="角色编辑" v-on:close="closeModal">
       <div slot="message">
-        <role-form ref="roleEditForm" :roleInfo="roleInfo" @saveRoleInfo="saveRoleInfo" @resetRoleInfo="resetRoleInfo" :resetBtnShow="false"></role-form>
+        <privilege-form ref="privilegeEditForm" :privilegeInfo="privilegeInfo" @savePrivilegeInfo="savePrivilegeInfo" @resetPrivilegeInfo="resetPrivilegeInfo" :resetBtnShow="false"></privilege-form>
       </div>
     </i-dialog>
-    <i-dialog v-bind:mdShow="roleAddModal" title="角色新增" v-on:close="closeModal">
+    <i-dialog v-bind:mdShow="privilegeAddModal" title="角色新增" v-on:close="closeModal">
       <div slot="message">
-        <role-form ref="roleAddForm" :roleInfo="roleInfo" :roleNameDisabled="addRoleNameDisabled"></role-form>
+        <privilege-form ref="privilegeAddForm" :privilegeInfo="privilegeInfo" :privilegeNameDisabled="addPrivilegeNameDisabled"></privilege-form>
       </div>
     </i-dialog>
   </div>
 </template>
 
 <script>
-  //角色接口
-  import { Role } from '../../api/api'
+  //权限接口
+  import { Privilege } from '../../api/api'
   import iTable from '@/components/table/comm-table'
   import iDialog from '@/components/modal/element-ui-dialog'
-  import roleForm from '@/view/role/roleForm'
+  import privilegeForm from '@/view/privilege/privilegeForm'
+  import iBreadcrumb from '@/components/breadcrumb/element-ui-breadcrumb'
+
   export default {
     components: {
       iTable,
       iDialog,
-      roleForm
+      privilegeForm,
+      iBreadcrumb
     },
     data () {
       return {
-        roleEditModal:false,
-        roleAddModal:false,
-        addRoleNameDisabled:false,
-        roleEditId:'',
-        roleInfo:{},
+        privilegeEditModal:false,
+        privilegeAddModal:false,
+        addPrivilegeNameDisabled:false,
+        privilegeEditId:'',
+        privilegeInfo:{},
         total:0,  //table总数
         pageSize:10,
         pageNum:1,
@@ -67,12 +75,12 @@
         columns: [
 
           {
-            prop: 'roleName',
+            prop: 'privilegeName',
             label: '角色名称',
             align: 'center',
           },
           {
-            prop: 'roleSn',
+            prop: 'privilegeSn',
             label: '角色标识',
             align: 'center',
           },
@@ -115,23 +123,23 @@
       }
     },
     created(){
-      this.getRoleListDate();
+      this.getPrivilegeListDate();
     },
     methods: {
       //请求用户数据
-      getRoleListDate(){
+      getPrivilegeListDate(){
         var param={
           pageSize:this.pageSize,
           pageNum:this.pageNum
         };
-        Role.roleList(param).then((res)=>{
+        Privilege.privilegeList(param).then((res)=>{
           this.list=res.data.rows;
           this.total=res.data.total;
         });
       },
       //更新用户数据
-      updateRoleInfo(param){
-        Role.updateRoleInfo(param).then((res)=>{
+      updatePrivilegeInfo(param){
+        Privilege.updatePrivilegeInfo(param).then((res)=>{
           let data=res.data;
           if(data.code==1){
             console.log(data.msg);
@@ -139,13 +147,13 @@
         })
       },
       //根据用户id拿到用户信息
-      getRoleInfo(param){
-        Role.getRoleInfo(param).then((res)=>{
+      getPrivilegeInfo(param){
+        Privilege.getPrivilegeInfo(param).then((res)=>{
           let data=res.data;
           if(data.code==1){
-            this.roleInfo=data.data;
-            console.log(this.roleInfo);
-            this.roleInfo.password='';
+            this.privilegeInfo=data.data;
+            console.log(this.privilegeInfo);
+            this.privilegeInfo.password='';
           }
         })
       },
@@ -156,47 +164,47 @@
       //改变pageSize
       handleSizeChange(val){
         this.pageSize=val;
-        this.getRoleListDate();
+        this.getPrivilegeListDate();
       },
       //改变当前页
       handleCurrentChange(val){
         this.pageNum=val;
-        this.getRoleListDate();
+        this.getPrivilegeListDate();
       },
       // 编辑
       handleEdit (index, row) {
         //console.log(' index:', index)
         //console.log(' row:', row);
-        this.roleEditModal=true;
-        this.getRoleInfo({"id":row.id})
+        this.privilegeEditModal=true;
+        this.getPrivilegeInfo({"id":row.id})
       },
       //关闭modal
       closeModal(){
-        this.roleEditModal=false;
-        this.roleAddModal=false;
-        this.$refs.roleAddForm.resetForm('roleForm');
-        this.$refs.roleEditForm.resetForm('roleForm')
+        this.privilegeEditModal=false;
+        this.privilegeAddModal=false;
+        this.$refs.privilegeAddForm.resetForm('privilegeForm');
+        this.$refs.privilegeEditForm.resetForm('privilegeForm')
 
       },
       //保存用户信息
-      saveRoleInfo(){
+      savePrivilegeInfo(){
         //向数据库加入数据
-        this.updateRoleInfo(this.roleInfo);
+        this.updatePrivilegeInfo(this.privilegeInfo);
         //关闭modal
         this.closeModal();
         //刷新table
-        this.getRoleListDate();
+        this.getPrivilegeListDate();
 
       },
       //重置用户信息
-      resetRoleInfo(){
-        this.roleInfo={}
+      resetPrivilegeInfo(){
+        this.privilegeInfo={}
       },
       //新增用户
-      addRole(){
-        this.roleAddModal=true;
+      addPrivilege(){
+        this.privilegeAddModal=true;
         //用户信息置空
-        this.roleInfo={};
+        this.privilegeInfo={};
       }
     }
   }
@@ -212,4 +220,12 @@
       left:5px;
     }
   }
+  .tableContainer{
+    position: absolute;
+    top:50px;
+    bottom: 20px;
+    width: 100%;
+    left: 0;
+  }
+
 </style>

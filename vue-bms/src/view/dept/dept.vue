@@ -1,6 +1,11 @@
 <template>
   <div>
-    <basic-table ref="bTable" @add="addDept" @delete="deleteDept" @edit="editDept"></basic-table>
+    <div class="indexContainer">
+      <div class="contextContainer">
+        <basic-table ref="bTable" @add="addDept" @delete="deleteDept" @edit="editDept"></basic-table>
+
+      </div>
+    </div>
     <i-dialog v-bind:mdShow="deptEditModal" title="编辑部门" @close="closeModal"  >
       <div slot="message">
         <dept-form :deptInfo="deptInfo" @saveDeptInfo="saveDeptInfo" :resetBtnShow="false"></dept-form>

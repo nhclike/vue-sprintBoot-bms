@@ -1,27 +1,69 @@
 <template>
 	<div>
-    <div class="top">
-      <el-button id="addBtn" type="primary" @click="addUser">新增</el-button>
+    <div class="indexContainer">
+      <div class="contextContainer">
+        <div class="top">
+          <el-button id="addBtn" type="primary" icon="el-icon-plus" @click="addUser">新增</el-button>
+        </div>
+        <div class="tableContainer">
+          <i-table :list="list"
+                   @handleSelectionChange="handleSelectionChange"
+                   @handleSizeChange="handleSizeChange"
+                   @handleCurrentChange="handleCurrentChange"
+                   :options="options"
+                   :columns="columns"
+                   :operates="operates"
+                   :total="total"
+          >
+          </i-table>
+        </div>
 
+      </div>
     </div>
-    <i-table :list="list"
-             @handleSelectionChange="handleSelectionChange"
-             @handleSizeChange="handleSizeChange"
-             @handleCurrentChange="handleCurrentChange"
-             :options="options"
-             :columns="columns"
-             :operates="operates"
-             :total="total"
-    >
-    </i-table>
+
     <i-dialog v-bind:mdShow="userEditModal" width="500px"  title="用户编辑" v-on:close="closeModal">
       <div slot="message">
-        <user-form ref="userEditForm" :userInfo="userInfo" @saveUserInfo="saveUserInfo" @resetUserInfo="resetUserInfo" :resetBtnShow="false"></user-form>
+        <user-form ref="userEditForm"
+                   :userInfo="userInfo"
+                   :allRole="allRole"
+                   @saveUserInfo="saveUserInfo"
+                   @resetUserInfo="resetUserInfo"
+                   :resetBtnShow="false">
+          <div slot="roleListCheckbox">
+            <el-form-item label="角色">
+              <el-checkbox-group v-model="userInfo.RoleList">
+                <el-checkbox
+                v-for="item,index in userInfo.RoleList"
+                 :key="index"
+                 :label="item.roleName"
+                  name="RoleList">
+                </el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+          </div>
+        </user-form>
       </div>
     </i-dialog>
     <i-dialog v-bind:mdShow="userAddModal" title="用户新增" v-on:close="closeModal">
       <div slot="message">
-        <user-form ref="userAddForm" :userInfo="userInfo" :userNameDisabled="addUserNameDisabled"></user-form>
+        <user-form
+          ref="userAddForm"
+          :userInfo="userInfo"
+          :allRole="allRole"
+          :userNameDisabled="addUserNameDisabled">
+          <div slot="roleListCheckbox">
+            <el-form-item label="角色">
+              <el-checkbox-group v-model="userInfo.RoleList">
+                <el-checkbox
+                  v-for="item,index in allRole"
+                  :key="index"
+                  :label="item.roleName"
+                  name="RoleList">
+                </el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+          </div>
+        </user-form>
       </div>
     </i-dialog>
 	</div>
@@ -30,6 +72,8 @@
 <script>
   //用户接口
   import { User } from '../../api/api'
+  import { Role } from '../../api/api'
+
   import iTable from '@/components/table/comm-table'
   import iDialog from '@/components/modal/element-ui-dialog'
   import userForm from '@/view/user/userForm'
@@ -41,6 +85,7 @@
     },
     data () {
       return {
+        allRole:[],
         userEditModal:false,
         userAddModal:false,
         addUserNameDisabled:false,
@@ -125,6 +170,8 @@
     },
     created(){
       this.getUserListDate();
+      //拿到所有角色
+      this.getAllRoleInfo();
     },
     methods: {
       //请求用户数据
@@ -153,11 +200,26 @@
           let data=res.data;
           if(data.code==1){
             this.userInfo=data.data;
+            console.log('this.userInfo')
             console.log(this.userInfo);
-            this.userInfo.password='';
           }
         })
       },
+      //拿到所有角色
+      getAllRoleInfo(){
+        Role.getAllRoleInfo().then((res)=>{
+          let data=res.data;
+          this.allRole=data.data;
+          console.log('this.allRole');
+          console.log(this.allRole)
+          if(data.code==='1'){
+            this.allRole=data.data;
+            console.log('this.allRole');
+            console.log(this.allRole)
+          }
+        })
+      },
+
       //删除用户
       deleteUserInfo(param){
         User.deleteUserInfo(param).then((res)=>{
@@ -183,8 +245,9 @@
       handleEdit (index, row) {
         //console.log(' index:', index)
         //console.log(' row:', row);
+
         this.userEditModal=true;
-        this.getUserInfo({"id":row.id})
+        this.getUserInfo({"id":row.id});
       },
       // 删除
       handleDel (index, row) {
@@ -222,6 +285,7 @@
         this.userAddModal=true;
         //用户信息置空
         this.userInfo={};
+
       }
     }
   }

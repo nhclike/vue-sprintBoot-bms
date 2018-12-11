@@ -8,7 +8,7 @@
         <el-option key="2" label="已禁用" value="已禁用"></el-option>
       </el-select>
       <el-button type="primary" icon="search" >查询</el-button>
-      <el-button type="primary" icon="search" @click="add">新增</el-button>
+      <el-button type="primary" icon="add" @click="add">新增</el-button>
     </div>
     <el-table :data="tData" border   style="width: 100%" >
       <el-table-column prop="deptNo" label="部门编号" align="center" >

@@ -18,6 +18,7 @@ import BusinessManageAdd from '@/view/businessManage/businessManageAdd';
 import User from '@/view/user/user';
 import Dept from '@/view/dept/dept';
 import Role from '@/view/role/role';
+import Privilege from '@/view/privilege/privilege';
 
 import HelloWorld from '@/components/HelloWorld';
 import Indexbf from '@/view/indexbf';
@@ -80,6 +81,10 @@ export default new Router({
         {
           path:'role',
           component:Role
+        },
+        {
+          path:'privilege',
+          component:Privilege
         }
       ]
     },

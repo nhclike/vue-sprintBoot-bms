@@ -1,35 +1,36 @@
 <template>
 	<div>
-    <i-breadcrumb>
+    <!--<i-breadcrumb>
       <div slot="breadcrumb">
         <el-breadcrumb-item :to="{ path: '/index/CompanyStatistics' }">商机统计</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path: '/index/CompanyStatistics' }">个人统计</el-breadcrumb-item>
 
       </div>
-    </i-breadcrumb>
+    </i-breadcrumb>-->
     <div class="indexContainer">
-      <el-row :gutter="20">
-        <el-col :span="16">
-          <i-card title="公告" operateBtn="更多">
-            <div slot="cardContext" >
-              <div :style="{height:carBodyHeight+'px'}">
-                <scroll :data="proclamations" class="proScroll" ref="proScroll">
-                  <div>
-                    <el-row :gutter="12">
-                      <el-col :span="12" style="margin-bottom: 10px" v-for="item in proclamations">
-                        <i-card-footer :proclamation="item"></i-card-footer>
-                      </el-col>
-                    </el-row>
-                  </div>
-                </scroll>
+      <div class="contextContainer">
+        <el-row :gutter="20">
+          <el-col :span="16">
+            <i-card title="公告" operateBtn="更多">
+              <div slot="cardContext" >
+                <div :style="{height:carBodyHeight+'px'}">
+                  <scroll :data="proclamations" class="Scroll" ref="proScroll">
+                    <div>
+                      <el-row :gutter="12">
+                        <el-col :span="12" style="margin-bottom: 10px" v-for="item in proclamations">
+                          <i-card-footer :proclamation="item"></i-card-footer>
+                        </el-col>
+                      </el-row>
+                    </div>
+                  </scroll>
+                </div>
               </div>
-            </div>
-          </i-card>
-        </el-col>
-        <el-col :span="8">
-          <i-card title="通知" >
-            <div slot="cardContext">
-              <div>
+            </i-card>
+          </el-col>
+          <el-col :span="8">
+            <i-card title="通知" >
+              <div slot="cardContext">
+                <div>
                   <el-table
                     :data="tableData"
                     style="width: 100%"
@@ -49,11 +50,13 @@
                       width="">
                     </el-table-column>
                   </el-table>
+                </div>
               </div>
-            </div>
-          </i-card>
-        </el-col>
-      </el-row>
+            </i-card>
+          </el-col>
+        </el-row>
+      </div>
+
     </div>
 	</div>
 </template>
@@ -79,7 +82,7 @@
     computed:{
       carBodyHeight(){
         var h = document.documentElement.clientHeight || document.body.clientHeight;
-       return  Number(h-230)
+       return  Number(h-200)
       },
     },
     created(){
@@ -198,25 +201,8 @@
 
 <style scoped lang="less">
   @import "./../../less/comm/variable.less";
-.indexContainer{
-  position: fixed;
-  top:@top_height+@breadcrumb_height;
-  bottom: 0;
-  left: @left_width;
-  right: 0;
-  padding:20px;
-  .el-row{
-    height: 100%;
-  }
-}
-  .proScroll{
-    overflow: hidden;
-    height: 100%;
-    position: relative;
-    .bscroll-vertical-scrollbar{
-      opacity: 1;
-    }
-  }
+
+
   .tableList{
     overflow: hidden;
     position: relative;

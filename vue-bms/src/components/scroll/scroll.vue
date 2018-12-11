@@ -117,5 +117,12 @@
 </script>
 
 <style scoped lang="less" >
-
+  .Scroll{
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+    .bscroll-vertical-scrollbar{
+      opacity: 1;
+    }
+  }
 </style>

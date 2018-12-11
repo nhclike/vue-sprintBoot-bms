@@ -1,6 +1,6 @@
 <template>
-  <div class="BMcontainer">
-    <div class="context">
+  <div class="indexContainer">
+    <div class="contextContainer">
       <el-form :inline="true" :model="queryForm" class="demo-form-inline">
         <el-form-item label="项目名称">
           <el-input v-model="queryForm.proName" placeholder="项目名称"></el-input>
@@ -215,22 +215,7 @@
 <style scoped lang="less">
   @import "./../../less/comm/variable.less";
 
-  .BMcontainer{
-    z-index: 1000;
-    background: #ddd;
-    position: fixed;
-    top:@top_height;
-    left:@left_width;
-    bottom: 0;
-    right: 0;
-    padding:20px;
-    margin:0;
-    .context{
-      background: #fff;
-      height: 100%;
-      .demo-form-inline{
-        padding-top: 20px;
-      }
-    }
+  .demo-form-inline{
+    padding-top: 20px;
   }
 </style>

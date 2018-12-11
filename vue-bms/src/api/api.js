@@ -16,7 +16,7 @@ export const loginApi = {
     })
   }
 };
-
+/***用户***/
 export const User = {
   userList(params){
     return new Promise(function(resolve, reject){
@@ -52,6 +52,7 @@ export const User = {
   }
 };
 
+/***部门***/
 export const Dept={
   deptList(params){
     return new Promise(function(resolve, reject){
@@ -86,7 +87,70 @@ export const Dept={
     })
   }
 }
+/***角色***/
+export const Role={
+  roleList(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/role/role_getList',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+  updateRoleInfo(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/role/role_addOrUpdate',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+  getRoleInfo(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/role/role_getRoleById',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+  /*****拿到所有角色******/
+  getAllRoleInfo(){
+    return new Promise(function(resolve, reject){
+      axios.get('/role/role_getAllRole').then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  }
+}
 
+/***权限***/
+export const Privilege={
+  privilegeList(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/privilege/privilege_getList',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+  updatePrivilegeInfo(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/privilege/privilege_addOrUpdate',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+  getPrivilegeInfo(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/privilege/privilege_getPrivilegeById',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  }
+}
 export const BusinessManage={
   BMList(params){
     return new Promise(function(resolve, reject){
