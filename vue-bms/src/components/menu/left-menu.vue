@@ -37,10 +37,6 @@
               {
                 name:'公告通知',
                 url:'HomePage',
-              },
-              {
-                name:'公告管理',
-                url:'Proclamation',
               }
             ]
           },

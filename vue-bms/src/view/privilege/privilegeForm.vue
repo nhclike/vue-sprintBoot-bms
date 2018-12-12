@@ -1,26 +1,30 @@
 <template>
   <div>
-    <el-form ref="privilegeForm" :rules="rules" :label-position="labelPosition" label-width="80px" :model="privilegeInfo">
+    <el-form ref="privilegeForm"
+             :rules="rules"
+             :label-position="labelPosition"
+             label-width="80px"
+             :model="privilegeForm">
       <el-form-item label="权限名称" prop="privilegeName">
-        <el-input v-model="privilegeInfo.privilegeName" :disabled="privilegeNameDisabled"></el-input>
+        <el-input v-model="privilegeForm.privilegeName" :disabled="privilegeNameDisabled"></el-input>
       </el-form-item>
       <el-form-item label="权限菜单" prop="privilegeMenu">
-        <el-input v-model="privilegeInfo.privilegeMenu"></el-input>
+        <el-input v-model="privilegeForm.privilegeMenu"></el-input>
       </el-form-item>
       <el-form-item label="菜单标识" prop="menuSn">
-        <el-input v-model="privilegeInfo.menuSn"></el-input>
+        <el-input v-model="privilegeForm.menuSn"></el-input>
       </el-form-item>
       <el-form-item label="权限值" prop="privilegeValue">
-        <el-input v-model="privilegeInfo.privilegeValue"></el-input>
+        <el-input v-model="privilegeForm.privilegeValue"></el-input>
       </el-form-item>
       <el-form-item label="状态" prop="status">
-        <el-select v-model="privilegeInfo.status" placeholder="请选择" style="width: 100%;">
+        <el-select v-model="privilegeForm.status" placeholder="请选择" style="width: 100%;">
           <el-option label="已启用"  value="1"></el-option>
           <el-option label="已禁用" value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="权限描述" prop="privilegeDescribe">
-        <el-input type="textarea" v-model="privilegeInfo.privilegeDescribe"></el-input>
+        <el-input type="textarea" v-model="privilegeForm.privilegeDescribe"></el-input>
       </el-form-item>
     </el-form>
     <el-button type="primary" @click="savePrivilegeInfo('privilegeForm')" v-show="saveBtnShow">保存</el-button>
@@ -54,6 +58,14 @@
       return {
         labelPosition:"right",
         validate:false,
+        privilegeForm:{
+          privilegeName:'',
+          privilegeMenu:'',
+          menuSn:'',
+          privilegeValue:'',
+          status:'',
+          privilegeDescribe:''
+        },
         rules:{
           privilegeName:[
             {
@@ -80,7 +92,29 @@
         }
       }
     },
+    created(){
+      this.$nextTick(()=>{
+        this.init();
+
+      })
+    },
+    mounted(){
+      setTimeout(()=>{
+        this.init();
+      },1000)
+    },
     methods:{
+      //
+      init(){
+        if(this.privilegeInfo){
+          this.privilegeForm.privilegeName=this.privilegeInfo.privilegeName;
+          this.privilegeForm.privilegeMenu=this.privilegeInfo.privilegeMenu;
+          this.privilegeForm.menuSn=this.privilegeInfo.menuSn;
+          this.privilegeForm.privilegeValue=this.privilegeInfo.privilegeValue;
+          this.privilegeForm.status=this.privilegeInfo.status.toString();
+          this.privilegeForm.privilegeDescribe=this.privilegeInfo.privilegeDescribe;
+        }
+      },
       //保存权限信息
       savePrivilegeInfo(formName){
         this.submitForm(formName);
@@ -108,6 +142,13 @@
       resetForm(formName) {
         this.$refs[formName].resetFields();
 
+      }
+    },
+    watch:{
+      privilegeInfo(oldVal,newVal){
+        this.$nextTick(()=>{
+          this.init();
+        })
       }
     }
   }

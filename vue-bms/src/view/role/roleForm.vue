@@ -18,9 +18,6 @@
           <el-checkbox :label="item.id" name="permissionId" v-for="item,index in allPrivilege">
             {{item.privilegeName}}
           </el-checkbox>
-         <!-- <el-checkbox label="地推活动" name="privilegeId"></el-checkbox>
-          <el-checkbox label="线下主题活动" name="privilegeId"></el-checkbox>
-          <el-checkbox label="单纯品牌曝光" name="privilegeId"></el-checkbox>-->
         </el-checkbox-group>
       </el-form-item>
     </el-form>

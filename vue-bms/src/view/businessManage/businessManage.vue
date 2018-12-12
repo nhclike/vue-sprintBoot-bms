@@ -131,7 +131,7 @@
               width:60,
               disabled: false,
               method: (index, row) => {
-                this.handleDel(index, row)
+                this.handleCheck(index, row)
               }
             },
             {
@@ -190,6 +190,18 @@
         this.pageNum=val;
         this.getTableData();
       },
+      //查看
+      handleCheck(index, row){
+        this.goToBusinessForm();
+      },
+      //删除
+      handleDel(index, row){
+
+      },
+      //修改
+      handleEdit(index, row){
+        this.goToBusinessForm();
+      },
       //重置
       reset(){
         this.queryForm={};
@@ -201,8 +213,12 @@
       },
       //新增
       add(){
+        this.goToBusinessForm();
+      },
+      //跳转到商机表单页面
+      goToBusinessForm(){
         this.$router.push({
-          path:'/index/BusinessManage/BusinessManageAdd'
+          path:'/index/BusinessManage/BusinessManageForm'
         })
       }
 

@@ -9,12 +9,11 @@ import Index from '@/view/index';
 
 
 import HomePage from '@/view/homePage/homePage';
-import Proclamation from '@/view/proclamation/proclamation';
 import CompanyStatistics from '@/view/statistics/companyStatistics'
 import PersonalStatistics from '@/view/statistics/personalStatistics'
 
 import BusinessManage from '@/view/businessManage/businessManage';
-import BusinessManageAdd from '@/view/businessManage/businessManageAdd';
+import BusinessManageForm from '@/view/businessManage/businessManageForm';
 import User from '@/view/user/user';
 import Dept from '@/view/dept/dept';
 import Role from '@/view/role/role';
@@ -49,10 +48,6 @@ export default new Router({
           component:HomePage
         },
         {
-          path:'Proclamation',
-          component:Proclamation
-        },
-        {
           path:'CompanyStatistics',
           component:CompanyStatistics
         },
@@ -65,8 +60,8 @@ export default new Router({
           component:BusinessManage,
           children:[
             {
-              path:':BusinessManageAdd',
-              component:BusinessManageAdd
+              path:':BusinessManageForm',
+              component:BusinessManageForm
             },
           ]
         },

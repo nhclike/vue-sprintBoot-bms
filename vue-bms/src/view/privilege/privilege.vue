@@ -29,12 +29,24 @@
 
     <i-dialog v-bind:mdShow="privilegeEditModal" width="500px"  title="权限编辑" v-on:close="closeModal">
       <div slot="message">
-        <privilege-form ref="privilegeEditForm" :privilegeInfo="privilegeInfo" @savePrivilegeInfo="savePrivilegeInfo" @resetPrivilegeInfo="resetPrivilegeInfo" :resetBtnShow="false"></privilege-form>
+        <privilege-form ref="privilegeEditForm"
+                        :privilegeInfo="privilegeInfo"
+                        @savePrivilegeInfo="savePrivilegeInfo"
+                        @resetPrivilegeInfo="resetPrivilegeInfo"
+                        :resetBtnShow="false">
+
+        </privilege-form>
       </div>
     </i-dialog>
     <i-dialog v-bind:mdShow="privilegeAddModal" title="权限新增" v-on:close="closeModal">
       <div slot="message">
-        <privilege-form ref="privilegeAddForm" :privilegeInfo="privilegeInfo" :privilegeNameDisabled="addPrivilegeNameDisabled"></privilege-form>
+        <privilege-form ref="privilegeAddForm"
+                        :privilegeInfo="null"
+                        @savePrivilegeInfo="savePrivilegeInfo"
+                        @resetPrivilegeInfo="resetPrivilegeInfo"
+                        :privilegeNameDisabled="addPrivilegeNameDisabled">
+
+        </privilege-form>
       </div>
     </i-dialog>
   </div>

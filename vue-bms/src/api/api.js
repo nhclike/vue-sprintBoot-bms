@@ -186,6 +186,14 @@ export const BusinessManage={
         resolve(res)
       })
     })
+  },
+  BMAdd(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/businessManage/businessManage_add',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
   }
 }
 
