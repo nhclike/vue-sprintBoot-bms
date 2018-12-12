@@ -85,6 +85,15 @@ export const Dept={
         resolve(res)
       })
     })
+  },
+  /*****拿到所有部门******/
+  getAllDeptInfo(){
+    return new Promise(function(resolve, reject){
+      axios.get('/dept/dept_getAllDepts').then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
   }
 }
 /***角色***/

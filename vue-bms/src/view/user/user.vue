@@ -25,22 +25,11 @@
       <div slot="message">
         <user-form ref="userEditForm"
                    :userInfo="userInfo"
-                   :allRole="allRole"
+
                    @saveUserInfo="saveUserInfo"
                    @resetUserInfo="resetUserInfo"
                    :resetBtnShow="false">
-          <div slot="roleListCheckbox">
-            <el-form-item label="角色">
-              <el-checkbox-group v-model="userInfo.RoleList">
-                <el-checkbox
-                v-for="item,index in userInfo.RoleList"
-                 :key="index"
-                 :label="item.roleName"
-                  name="RoleList">
-                </el-checkbox>
-              </el-checkbox-group>
-            </el-form-item>
-          </div>
+
         </user-form>
       </div>
     </i-dialog>
@@ -48,21 +37,13 @@
       <div slot="message">
         <user-form
           ref="userAddForm"
-          :userInfo="userInfo"
-          :allRole="allRole"
-          :userNameDisabled="addUserNameDisabled">
-          <div slot="roleListCheckbox">
-            <el-form-item label="角色">
-              <el-checkbox-group v-model="userInfo.RoleList">
-                <el-checkbox
-                  v-for="item,index in allRole"
-                  :key="index"
-                  :label="item.roleName"
-                  name="RoleList">
-                </el-checkbox>
-              </el-checkbox-group>
-            </el-form-item>
-          </div>
+
+          :userInfo="null"
+          :userNameDisabled="addUserNameDisabled"
+          @saveUserInfo="saveUserInfo"
+          @resetUserInfo="resetUserInfo"
+        >
+
         </user-form>
       </div>
     </i-dialog>
@@ -72,7 +53,6 @@
 <script>
   //用户接口
   import { User } from '../../api/api'
-  import { Role } from '../../api/api'
 
   import iTable from '@/components/table/comm-table'
   import iDialog from '@/components/modal/element-ui-dialog'
@@ -85,12 +65,12 @@
     },
     data () {
       return {
-        allRole:[],
         userEditModal:false,
         userAddModal:false,
         addUserNameDisabled:false,
         userEditId:'',
         userInfo:{},
+        userForm:{},
         total:0,  //table总数
         pageSize:10,
         pageNum:1,
@@ -169,9 +149,9 @@
       }
     },
     created(){
+      //请求用户数据
       this.getUserListDate();
-      //拿到所有角色
-      this.getAllRoleInfo();
+
     },
     methods: {
       //请求用户数据
@@ -205,20 +185,7 @@
           }
         })
       },
-      //拿到所有角色
-      getAllRoleInfo(){
-        Role.getAllRoleInfo().then((res)=>{
-          let data=res.data;
-          this.allRole=data.data;
-          console.log('this.allRole');
-          console.log(this.allRole)
-          if(data.code==='1'){
-            this.allRole=data.data;
-            console.log('this.allRole');
-            console.log(this.allRole)
-          }
-        })
-      },
+
 
       //删除用户
       deleteUserInfo(param){
@@ -260,16 +227,25 @@
       },
       //关闭modal
       closeModal(){
-        this.userEditModal=false;
-        this.userAddModal=false;
-        this.$refs.userAddForm.resetForm('userForm');
-        this.$refs.userEditForm.resetForm('userForm')
+        if(this.userEditModal){
+          this.userEditModal=false;
+          this.$refs.userEditForm.resetForm('userForm')
+
+        }
+        else if(this.userAddModal){
+          this.userAddModal=false;
+          this.$refs.userAddForm.resetForm('userForm');
+        }
+
 
       },
       //保存用户信息
-      saveUserInfo(){
+      saveUserInfo(value){
+        console.log('saveUserInfo');
+        console.log(value);
+        this.userForm=value;
         //向数据库加入数据
-        this.updateUserInfo(this.userInfo);
+        this.updateUserInfo(value);
         //关闭modal
         this.closeModal();
         //刷新table
@@ -283,8 +259,7 @@
       //新增用户
       addUser(){
         this.userAddModal=true;
-        //用户信息置空
-        this.userInfo={};
+
 
       }
     }

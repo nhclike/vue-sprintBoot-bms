@@ -8,12 +8,23 @@
     </div>
     <i-dialog v-bind:mdShow="deptEditModal" title="编辑部门" @close="closeModal"  >
       <div slot="message">
-        <dept-form :deptInfo="deptInfo" @saveDeptInfo="saveDeptInfo" :resetBtnShow="false"></dept-form>
+        <dept-form
+          :deptInfo="deptInfo"
+          @saveDeptInfo="saveDeptInfo"
+          :resetBtnShow="false"
+        >
+
+        </dept-form>
       </div>
     </i-dialog>
     <i-dialog v-bind:mdShow="deptAddModal" title="新增部门" @close="closeModal" >
       <div slot="message">
-        <dept-form :deptInfo="deptInfo" @saveDeptInfo="saveDeptInfo"></dept-form>
+        <dept-form
+          :deptInfo="deptInfo"
+          @saveDeptInfo="saveDeptInfo"
+        >
+
+        </dept-form>
       </div>
 
     </i-dialog>
@@ -62,8 +73,17 @@
           let data=res.data;
           if(data.code==1){
             this.deptInfo=data.data;
-            //console.log(this.deptInfo);
+            console.log(this.deptInfo);
           }
+        })
+      },
+      //拿到所有部门
+      getAllDeptInfo(){
+        Dept.getAllDeptInfo().then((res)=>{
+          let data=res.data;
+          this.allDept=data.data;
+          console.log('this.deptInfo');
+          console.log(this.deptInfo)
         })
       },
       //关闭modal

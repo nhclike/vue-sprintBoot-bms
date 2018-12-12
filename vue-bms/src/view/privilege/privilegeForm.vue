@@ -81,14 +81,14 @@
       }
     },
     methods:{
-      //保存用户信息
+      //保存权限信息
       savePrivilegeInfo(formName){
         this.submitForm(formName);
         if(this.validate){  //验证通过
           this.$emit("savePrivilegeInfo")
         }
       },
-      //重置用户信息
+      //重置权限信息
       resetPrivilegeInfo(formName){
         this.resetForm(formName)
         this.$emit("resetPrivilegeInfo")

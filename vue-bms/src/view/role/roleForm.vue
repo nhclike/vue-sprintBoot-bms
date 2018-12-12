@@ -73,14 +73,14 @@
       }
     },
     methods:{
-      //保存用户信息
+      //保存角色信息
       saveRoleInfo(formName){
         this.submitForm(formName);
         if(this.validate){  //验证通过
           this.$emit("saveRoleInfo")
         }
       },
-      //重置用户信息
+      //重置角色信息
       resetRoleInfo(formName){
         this.resetForm(formName)
         this.$emit("resetRoleInfo")

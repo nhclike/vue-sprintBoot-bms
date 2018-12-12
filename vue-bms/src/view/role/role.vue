@@ -118,7 +118,7 @@
       this.getRoleListDate();
     },
     methods: {
-      //请求用户数据
+      //请求角色数据
       getRoleListDate(){
         var param={
           pageSize:this.pageSize,
@@ -129,7 +129,7 @@
           this.total=res.data.total;
         });
       },
-      //更新用户数据
+      //更新角色数据
       updateRoleInfo(param){
         Role.updateRoleInfo(param).then((res)=>{
           let data=res.data;
@@ -138,7 +138,7 @@
           }
         })
       },
-      //根据用户id拿到用户信息
+      //根据角色id拿到角色信息
       getRoleInfo(param){
         Role.getRoleInfo(param).then((res)=>{
           let data=res.data;
@@ -178,7 +178,7 @@
         this.$refs.roleEditForm.resetForm('roleForm')
 
       },
-      //保存用户信息
+      //保存角色信息
       saveRoleInfo(){
         //向数据库加入数据
         this.updateRoleInfo(this.roleInfo);
@@ -188,14 +188,14 @@
         this.getRoleListDate();
 
       },
-      //重置用户信息
+      //重置角色信息
       resetRoleInfo(){
         this.roleInfo={}
       },
-      //新增用户
+      //新增角色
       addRole(){
         this.roleAddModal=true;
-        //用户信息置空
+        //角色信息置空
         this.roleInfo={};
       }
     }

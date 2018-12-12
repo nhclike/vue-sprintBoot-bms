@@ -27,12 +27,12 @@
       </div>
     </div>
 
-    <i-dialog v-bind:mdShow="privilegeEditModal" width="500px"  title="角色编辑" v-on:close="closeModal">
+    <i-dialog v-bind:mdShow="privilegeEditModal" width="500px"  title="权限编辑" v-on:close="closeModal">
       <div slot="message">
         <privilege-form ref="privilegeEditForm" :privilegeInfo="privilegeInfo" @savePrivilegeInfo="savePrivilegeInfo" @resetPrivilegeInfo="resetPrivilegeInfo" :resetBtnShow="false"></privilege-form>
       </div>
     </i-dialog>
-    <i-dialog v-bind:mdShow="privilegeAddModal" title="角色新增" v-on:close="closeModal">
+    <i-dialog v-bind:mdShow="privilegeAddModal" title="权限新增" v-on:close="closeModal">
       <div slot="message">
         <privilege-form ref="privilegeAddForm" :privilegeInfo="privilegeInfo" :privilegeNameDisabled="addPrivilegeNameDisabled"></privilege-form>
       </div>
@@ -76,12 +76,12 @@
 
           {
             prop: 'privilegeName',
-            label: '角色名称',
+            label: '权限名称',
             align: 'center',
           },
           {
             prop: 'privilegeSn',
-            label: '角色标识',
+            label: '权限标识',
             align: 'center',
           },
           {
