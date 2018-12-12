@@ -106,9 +106,17 @@ export const Role={
       })
     })
   },
-  updateRoleInfo(params){
+  roleAdd(params){
     return new Promise(function(resolve, reject){
-      axios.post('/role/role_addOrUpdate',qs.stringify(params)).then((response)=>{
+      axios.post('/role/role_add',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+  updateRoleAndPrivilegeInfo(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/role/role_updateRoleAndPrivilege',qs.stringify(params)).then((response)=>{
         let res=response;
         resolve(res)
       })
@@ -116,7 +124,7 @@ export const Role={
   },
   getRoleInfo(params){
     return new Promise(function(resolve, reject){
-      axios.post('/role/role_getRoleById',qs.stringify(params)).then((response)=>{
+      axios.post('/role/role_getRoleAndPrivilegeByRoleId',qs.stringify(params)).then((response)=>{
         let res=response;
         resolve(res)
       })
@@ -158,7 +166,17 @@ export const Privilege={
         resolve(res)
       })
     })
+  },
+  /*****拿到所有权限******/
+  getAllPrivilegeInfo(){
+    return new Promise(function(resolve, reject){
+      axios.get('/privilege/privilege_getAllPrivilege').then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
   }
+
 }
 export const BusinessManage={
   BMList(params){

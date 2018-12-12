@@ -3,8 +3,7 @@
     <div class="indexContainer">
       <div class="contextContainer">
         <div class="top">
-          <el-button id="addBtn" type="primary" @click="addRole">新增</el-button>
-
+          <el-button id="addBtn" type="primary" @click="addRoleBtnClick">新增</el-button>
         </div>
         <div class="tableContainer">
           <i-table :list="list"
@@ -18,18 +17,35 @@
           >
           </i-table>
         </div>
-
       </div>
     </div>
 
     <i-dialog v-bind:mdShow="roleEditModal" width="500px"  title="角色编辑" v-on:close="closeModal">
       <div slot="message">
-        <role-form ref="roleEditForm" :roleInfo="roleInfo" @saveRoleInfo="saveRoleInfo" @resetRoleInfo="resetRoleInfo" :resetBtnShow="false"></role-form>
+        <role-form
+          ref="roleEditForm"
+          :roleInfo="roleInfo"
+          @saveRoleInfo="saveRoleInfo"
+          @resetRoleInfo="resetRoleInfo"
+          :resetBtnShow="false"
+          :addBtnShow="false"
+        >
+
+        </role-form>
       </div>
     </i-dialog>
     <i-dialog v-bind:mdShow="roleAddModal" title="角色新增" v-on:close="closeModal">
       <div slot="message">
-        <role-form ref="roleAddForm" :roleInfo="roleInfo" :roleNameDisabled="addRoleNameDisabled"></role-form>
+        <role-form
+          ref="roleAddForm"
+          :roleInfo="null"
+          @addRole="addRole"
+          @resetRoleInfo="resetRoleInfo"
+          :saveBtnShow="false"
+          :roleNameDisabled="addRoleNameDisabled"
+        >
+
+        </role-form>
       </div>
     </i-dialog>
   </div>
@@ -129,9 +145,18 @@
           this.total=res.data.total;
         });
       },
-      //更新角色数据
-      updateRoleInfo(param){
-        Role.updateRoleInfo(param).then((res)=>{
+      //更新角色和权限数据
+      updateRoleAndPrivilegeInfo(param){
+        Role.updateRoleAndPrivilegeInfo(param).then((res)=>{
+          let data=res.data;
+          if(data.code==1){
+            console.log(data.msg);
+          }
+        })
+      },
+      //新增角色数据
+      addRoleData(param){
+        Role.roleAdd(param).then((res)=>{
           let data=res.data;
           if(data.code==1){
             console.log(data.msg);
@@ -145,7 +170,6 @@
           if(data.code==1){
             this.roleInfo=data.data;
             console.log(this.roleInfo);
-            this.roleInfo.password='';
           }
         })
       },
@@ -168,22 +192,24 @@
         //console.log(' index:', index)
         //console.log(' row:', row);
         this.roleEditModal=true;
-        this.getRoleInfo({"id":row.id})
+        this.getRoleInfo({"roleId":row.roleId})
       },
-      //关闭modal
-      closeModal(){
-        this.roleEditModal=false;
-        this.roleAddModal=false;
-        this.$refs.roleAddForm.resetForm('roleForm');
-        this.$refs.roleEditForm.resetForm('roleForm')
 
-      },
-      //保存角色信息
-      saveRoleInfo(){
+      //新增角色信息
+      addRole(value){
         //向数据库加入数据
-        this.updateRoleInfo(this.roleInfo);
+        this.addRoleData(value);
         //关闭modal
-        this.closeModal();
+        this.closeAddModal();
+        //刷新table
+        this.getRoleListDate();
+      },
+      //修改保存角色信息
+      saveRoleInfo(value){
+        //向数据库加入数据
+        this.updateRoleAndPrivilegeInfo(value);
+        //关闭modal
+        this.closeEditModal();
         //刷新table
         this.getRoleListDate();
 
@@ -192,11 +218,28 @@
       resetRoleInfo(){
         this.roleInfo={}
       },
-      //新增角色
-      addRole(){
+      //新增弹出modal
+      addRoleBtnClick(){
         this.roleAddModal=true;
-        //角色信息置空
-        this.roleInfo={};
+
+      },
+      //关闭AddModal
+      closeAddModal(){
+        this.roleAddModal=false;
+        this.$refs.roleAddForm.resetForm('roleForm');
+      },
+      //关闭EditModal
+      closeEditModal(){
+        this.roleEditModal=false;
+        this.$refs.roleEditForm.resetForm('roleForm')
+      },
+      closeModal(){
+        if(this.roleEditModal){
+          this.closeEditModal();
+        }
+        if(this.roleAddModal){
+          this.closeAddModal();
+        }
       }
     }
   }
