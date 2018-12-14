@@ -1,49 +1,50 @@
 <template>
   <div class="indexContainer">
     <div class="contextContainer">
-      <el-form :inline="true" :model="queryForm" class="demo-form-inline">
-        <el-form-item label="项目名称">
-          <el-input v-model="queryForm.proName" placeholder="项目名称"></el-input>
-        </el-form-item>
-        <el-form-item label="用户名称">
-          <el-input v-model="queryForm.userName" placeholder="用户名称"></el-input>
-        </el-form-item>
-        <el-form-item label="所属区域">
-          <el-input v-model="queryForm.area" placeholder="所属区域"></el-input>
-        </el-form-item>
-        <el-form-item label="填表时间">
-          <el-date-picker type="date" v-model="queryForm.writeDate" placeholder="填表时间"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="项目状态">
-          <el-select v-model="queryForm.proStatus" placeholder="项目状态">
-            <el-option label="待提交" value="1"></el-option>
-            <el-option label="已提交" value="2"></el-option>
-            <el-option label="待分配" value="3"></el-option>
-            <el-option label="已分配" value="4"></el-option>
-            <el-option label="待完成" value="5"></el-option>
-            <el-option label="已完成" value="6"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="reset">重置</el-button>
-
-          <el-button type="primary" @click="query">查询</el-button>
-          <el-button type="primary" @click="add">新增</el-button>
-
-        </el-form-item>
-      </el-form>
-      <i-table
-        :list="list"
-        @handleSelectionChange="handleSelectionChange"
-        @handleSizeChange="handleSizeChange"
-        @handleCurrentChange="handleCurrentChange"
-        :options="options"
-        :columns="columns"
-        :operates="operates"
-        :total="total"
-      ></i-table>
+      <div class="top" style="height: 120px;padding-top: 10px">
+        <el-form :inline="true" :model="queryForm" class="demo-form-inline">
+          <el-form-item label="项目名称">
+            <el-input v-model="queryForm.proName" placeholder="项目名称"></el-input>
+          </el-form-item>
+          <el-form-item label="用户名称">
+            <el-input v-model="queryForm.userName" placeholder="用户名称"></el-input>
+          </el-form-item>
+          <el-form-item label="所属区域">
+            <el-input v-model="queryForm.area" placeholder="所属区域"></el-input>
+          </el-form-item>
+          <el-form-item label="填表时间">
+            <el-date-picker type="date" v-model="queryForm.writeDate" placeholder="填表时间"></el-date-picker>
+          </el-form-item>
+          <el-form-item label="项目状态">
+            <el-select v-model="queryForm.proStatus" placeholder="项目状态">
+              <el-option label="待提交" value="1"></el-option>
+              <el-option label="已提交" value="2"></el-option>
+              <el-option label="待分配" value="3"></el-option>
+              <el-option label="已分配" value="4"></el-option>
+              <el-option label="待完成" value="5"></el-option>
+              <el-option label="已完成" value="6"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="reset">重置</el-button>
+            <el-button type="primary" @click="query">查询</el-button>
+            <el-button type="primary" @click="add">新增</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="tableContainer" style="top:120px">
+        <i-table
+          :list="list"
+          @handleSelectionChange="handleSelectionChange"
+          @handleSizeChange="handleSizeChange"
+          @handleCurrentChange="handleCurrentChange"
+          :options="options"
+          :columns="columns"
+          :operates="operates"
+          :total="total"
+        ></i-table>
+      </div>
     </div>
-
     <router-view></router-view>
 
   </div>
@@ -105,13 +106,13 @@
           }
         ], // 需要展示的列
         operates: {
-          width: 300,
+          width: 360,
           fixed: 'right',
           list: [
             {
               id:'1',
               label: '修改',
-              type: 'warning',
+              type: 'primary',
               show: true,
               icon: 'el-icon-edit',
               plain: true,
@@ -124,7 +125,7 @@
             {
               id:'2',
               label: '查看',
-              type: 'danger',
+              type: 'warning',
               icon: 'el-icon-delete',
               show: true,
               plain: false,
@@ -145,6 +146,32 @@
               disabled: false,
               method: (index, row) => {
                 this.handleDel(index, row)
+              }
+            },
+            {
+              id:'4',
+              label: '评估',
+              type: 'info',
+              icon: 'el-icon-delete',
+              show: true,
+              plain: false,
+              width:60,
+              disabled: false,
+              method: (index, row) => {
+                this.handleEvaluate(index, row)
+              }
+            },
+            {
+              id:'5',
+              label: '完成',
+              type: 'success',
+              icon: 'el-icon-delete',
+              show: true,
+              plain: false,
+              width:60,
+              disabled: false,
+              method: (index, row) => {
+                this.handleFinish(index, row)
               }
             }
           ]
@@ -202,6 +229,14 @@
       handleEdit(index, row){
         this.goToBusinessForm();
       },
+      //评估
+      handleEvaluate(index, row){
+
+      },
+      //完成
+      handleFinish(index, row){
+
+      },
       //重置
       reset(){
         this.queryForm={};
@@ -231,7 +266,4 @@
 <style scoped lang="less">
   @import "./../../less/comm/variable.less";
 
-  .demo-form-inline{
-    padding-top: 20px;
-  }
 </style>

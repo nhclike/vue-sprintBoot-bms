@@ -140,7 +140,6 @@
 
 <style slot-scope>
   .table{
-    padding:20px 0;
   }
   .handle-box{
     margin-bottom: 20px;

@@ -1,14 +1,10 @@
 <template>
   <div>
     <div class="form-box">
-      <el-form ref="form" :model="BMForm" label-width="200px">
-        <!--商机信息-->
-        <el-row  >
-          <div class="panel">
-            <div class="panel-header">
-              <span class="panel-title-self">商机信息</span>
-            </div>
-            <div class="panel-body">
+      <div class="context-box">
+        <el-form ref="form" :model="BMForm" label-width="200px">
+          <el-collapse v-model="activeNames" @change="handleChange">
+            <el-collapse-item title="商机信息" name="1">
               <el-row :gutter="20">
                 <el-col :span="11">
                   <el-form-item label="项目名称">
@@ -40,7 +36,11 @@
               <el-row :gutter="20">
                 <el-col :span="11">
                   <el-form-item label="所属区域">
-                    <el-input v-model="BMForm.area"></el-input>
+                    <!--<el-input v-model="BMForm.area"></el-input>-->
+                    <city-choose style="width: 100%">
+
+                    </city-choose>
+
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">
@@ -131,16 +131,8 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-            </div>
-          </div>
-        </el-row>
-        <!--采购预算信息-->
-        <el-row>
-          <div class="panel">
-            <div class="panel-header">
-              <span class="panel-title-self">采购预算信息</span>
-            </div>
-            <div class="panel-body">
+            </el-collapse-item>
+            <el-collapse-item title="采购预算信息" name="2">
               <el-row :gutter="20">
                 <el-col :span="11">
                   <el-form-item label="采购方式">
@@ -180,16 +172,8 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-            </div>
-          </div>
-        </el-row>
-        <el-row>
-          <div class="panel">
-            <div class="panel-header">
-              <span class="panel-title-self">竞争对手信息</span>
-            </div>
-            <div class="panel-body">
-
+            </el-collapse-item>
+            <el-collapse-item title="竞争对手信息" name="3">
               <el-row :gutter="20">
                 <el-col :span="22">
                   <el-form-item label="竞争对手情况">
@@ -197,24 +181,24 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-            </div>
-          </div>
-        </el-row>
-        <el-row style="background-color: #fff">
-          <el-col :span="6" :offset="9">
-            <el-button type="success" @click="saveBMInfo">保存</el-button>
-            <el-button type="info" @click="goBack">返回</el-button>
-
-
-          </el-col>
-        </el-row>
-      </el-form>
+            </el-collapse-item>
+            <el-collapse-item title="可控 Controllability" name="4">
+              <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
+              <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+            </el-collapse-item>
+          </el-collapse>
+        </el-form>
+        <div class="footer">
+          <el-button type="success" @click="saveBMInfo">保存</el-button>
+          <el-button type="info" @click="goBack">返回</el-button>
+        </div>
+      </div>
     </div>
-
   </div>
 </template>
 
 <script>
+  import CityChoose from '@/components/select/Cascader'
   export default {
     data: function(){
       return {
@@ -261,6 +245,9 @@
         }]
       }
     },
+    components:{
+      CityChoose
+    },
     methods: {
       //保存事件广播
       saveBMInfo() {
@@ -285,47 +272,31 @@
     left:250px;
     bottom:0;
     right:0;
-    .el-form{
-      width:100%;
-      height: 100%;
-      padding: 20px;
-      overflow: scroll;
+    .context-box{
+      position: absolute;
+      top:20px;
+      left: 20px;
+      bottom: 20px;
+      right: 20px;
+      background: #fff;
+      .el-form{
+        position: absolute;
+        top:0;
+        bottom: 60px;
+        width: 100%;
+        overflow: scroll;
+      }
+      .footer{
+        position: absolute;
+        bottom: 0px;
+        height: 60px;
+        line-height: 60px;
+        width: 100%;
+      }
     }
-  }
-  /*
-	panel面板样式
-	*/
 
-  .panel{
-    margin: 0;
-    position: relative;
-    .panel-header{
-      background:@panel-title-bg;
-      padding-left: 10px;
-      height: @panel-title-height;
-      line-height: @panel-title-height;
-      display: flex;
-      align-items: center;
-      img{
-        margin: 0 5px;
-        flex:0 0 28px;
-      }
-      .panel-title-self{
-        color: @panel-title-color;
-        font-size: @panel-title-font-size*0.8;
-        background-color: @panel-title-bg;
-        height: @panel-title-height;
-        flex: 1;
-      }
-    }
-    .panel-body{
-      height: 100%;
-      width: 100%;
-      box-sizing: border-box;
-      padding-top: 20px;
-      position: relative;
-    }
   }
+
   .el-date-editor.el-input{
     width: 100%;
   }

@@ -16,12 +16,6 @@
       var myChart = echarts.init(document.getElementById('unfinishedMain'));
       var option = {
         opacity:0.6,
-        grid: {
-          left: -20,
-          top: '20%',
-          bottom: -10,
-          containLabel: true
-        },
         tooltip: {
           show: false
         },

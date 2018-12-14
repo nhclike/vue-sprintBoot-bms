@@ -4,7 +4,8 @@
     <el-table id="iTable"
               v-loading.iTable="options.loading"
               :data="list"
-              max-height="tableHeight"
+
+              :max-height="tableHeight"
               :stripe="options.stripe"
               ref="mutipleTable"
               @selection-change="handleSelectionChange">
@@ -77,7 +78,7 @@
       }, // 数据列表
       tableHeight:{
         type:Number,
-        default:800
+        default:400
       },
       columns: {
         type: Array,
