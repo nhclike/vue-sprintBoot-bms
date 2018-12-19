@@ -2,7 +2,7 @@
   <el-card class="box-card" :style="{width: width }">
     <div slot="header" class="clearfix">
       <span class="title">{{title}}</span>
-      <el-button style="float: right;padding: 0" type="text">{{operateBtn}}</el-button>
+      <el-button style="float: right;padding: 0" type="text" @click="operateBtnClick">{{operateBtn}}</el-button>
     </div>
     <div>
     <slot name="cardContext"></slot>
@@ -27,6 +27,11 @@
       width:{
         type:String,
         default:'100%'
+      }
+    },
+    methods:{
+      operateBtnClick(){
+        this.$emit("operateBtnClick")
       }
     }
   }

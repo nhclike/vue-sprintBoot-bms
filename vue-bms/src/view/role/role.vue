@@ -34,7 +34,9 @@
         </role-form>
       </div>
     </i-dialog>
-    <i-dialog v-bind:mdShow="roleAddModal" title="角色新增" v-on:close="closeModal">
+    <i-dialog v-bind:mdShow="roleAddModal"
+              title="角色新增"
+              v-on:close="closeModal">
       <div slot="message">
         <role-form
           ref="roleAddForm"

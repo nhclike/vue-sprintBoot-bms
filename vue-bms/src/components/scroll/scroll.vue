@@ -64,7 +64,7 @@
           probeType: this.probeType,
           click: this.click,
           scrollbar: {
-            fade: false,
+            fade: true,
             interactive: true // 1.8.0 新增
           },
           eventPassthrough: this.direction === DIRECTION_V ? DIRECTION_H : DIRECTION_V

@@ -47,11 +47,11 @@
             child:[
               {
                 name:'公司统计',
-                url:'CompanyStatistics',
+                url:'CorporateStatistics',
               },
               {
                 name:'个人统计',
-                url:'PersonalStatistics',
+                url:'IndividualStatistics',
               }
             ]
           },

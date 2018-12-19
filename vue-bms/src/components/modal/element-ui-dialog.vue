@@ -7,6 +7,9 @@
       :before-close="handleClose"
       :modal="modal"
       :close-on-click-modal="closeOnClickModal"
+      :show-close="showClose"
+      :custom-class="customClass"
+      :modal-append-to-body="false"
       center
     >
       <slot name="message"></slot>
@@ -39,6 +42,14 @@
       width:{
         type:String,
         default:"30%"
+      },
+      showClose:{
+        type:Boolean,
+        default:true
+      },
+      customClass:{
+        type:String,
+        default:''
       }
     },
 

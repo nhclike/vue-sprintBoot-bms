@@ -11,13 +11,13 @@
       <div class="contextContainer">
         <el-row :gutter="20">
           <el-col :span="16">
-            <i-card title="公告" operateBtn="更多">
+            <i-card title="公告" operateBtn="新增公告" @operateBtnClick="operateBtnClick">
               <div slot="cardContext" >
                 <div :style="{height:carBodyHeight+'px'}">
                   <scroll :data="proclamations" class="Scroll" ref="proScroll">
                     <div>
                       <el-row :gutter="12">
-                        <el-col :span="12" style="margin-bottom: 10px" v-for="item in proclamations">
+                        <el-col :span="24" style="margin-bottom: 10px" v-for="item in proclamations">
                           <i-card-footer :proclamation="item"></i-card-footer>
                         </el-col>
                       </el-row>
@@ -56,7 +56,20 @@
           </el-col>
         </el-row>
       </div>
+      <i-dialog v-bind:mdShow="proclamationsModal"
+                title="公告新增"
+                width="20%"
+                @close="proclamationsModalHide"
+                customClass="proclamationsModal"
+      >
+        <div slot="message">
+          <div>
+            <proclamation-form :proclamationInfo="null">
 
+            </proclamation-form>
+          </div>
+        </div>
+      </i-dialog>
     </div>
 	</div>
 </template>
@@ -66,18 +79,23 @@
   import iCard from '@/components/panel/element-ui-card'
   import iCardFooter from '@/components/panel/element-ui-card-footer'
   import Scroll from '@/components/scroll/scroll'
+  import iDialog from '@/components/modal/element-ui-dialog'
+  import proclamationForm from '@/view/homePage/proclamationForm'
   export default {
     data(){
       return {
         tableData: [],//通知表格数据
         proclamations:[], //公告数据
+        proclamationsModal:false,
       }
     },
     components:{
       iBreadcrumb,
       iCard,
       iCardFooter,
-      Scroll
+      Scroll,
+      iDialog,
+      proclamationForm
     },
     computed:{
       carBodyHeight(){
@@ -183,6 +201,19 @@
           }
         ];
       },
+      //新增公告被点击
+      operateBtnClick(){
+        //alert("operateBtnClick");
+        this.proclamationsModalShow();
+      },
+      //新增公告显示
+      proclamationsModalShow(){
+        this.proclamationsModal=true;
+      },
+      //新增公告隐藏
+      proclamationsModalHide(){
+        this.proclamationsModal=false;
+      },
       //刷新滚动条
       refreshScroll(){
         setTimeout(()=>{
@@ -207,5 +238,8 @@
     overflow: hidden;
     position: relative;
     height: 100%;
+  }
+  .el-dialog__wrapper{
+    z-index: 9999;
   }
 </style>

@@ -9,9 +9,8 @@ import Index from '@/view/index';
 
 
 import HomePage from '@/view/homePage/homePage';
-import CompanyStatistics from '@/view/statistics/companyStatistics'
-import PersonalStatistics from '@/view/statistics/personalStatistics'
-
+import CorporateStatistics from '@/view/statistics/corporateStatistics'
+import IndividualStatistics from '@/view/statistics/individualStatistics'
 import BusinessManage from '@/view/businessManage/businessManage';
 import BusinessManageForm from '@/view/businessManage/businessManageForm';
 import User from '@/view/user/user';
@@ -48,12 +47,12 @@ export default new Router({
           component:HomePage
         },
         {
-          path:'CompanyStatistics',
-          component:CompanyStatistics
+          path:'CorporateStatistics',
+          component:CorporateStatistics
         },
         {
-          path:'PersonalStatistics',
-          component:PersonalStatistics
+          path:'IndividualStatistics',
+          component:IndividualStatistics
         },
         {
           path:'BusinessManage',
