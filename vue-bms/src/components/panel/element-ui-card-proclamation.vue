@@ -1,21 +1,20 @@
 <template>
   <el-card shadow="always" :body-style="bodyStyle">
     <div class="cardBody" style="padding: 20px">
-      <h4>{{proclamation.proclamationName}}</h4>
+      <div class="header">
+        <h4>{{proclamation.proclamationName}}</h4>
+        <div class="operateBtn">
+          <el-button type="primary" plain>编辑</el-button>
+          <el-button type="primary" plain>删除</el-button>
+
+        </div>
+      </div>
       <div  class="text">
         {{proclamation.proclamationContent}}
       </div>
       <div>
         <span style="float: right">{{proclamation.proclamationDate}}</span>
       </div>
-    </div>
-    <div class="footer" >
-      <span class="footer-btn">
-        编辑
-      </span>
-      <span  class="footer-btn">
-        删除
-      </span>
     </div>
   </el-card>
 </template>
@@ -45,13 +44,23 @@
 </script>
 <style scoped lang="less">
   @import "./../../less/comm/variable.less";
-  @footer_height:40px;
+  @header_height:40px;
   .cardBody{
-    H4{
-      text-align: left;
-      padding-left: 5px;
-      color: #000;
+    .header{
+      display: flex;
+      height: @header_height;
+      .operateBtn{
+        flex: 0 0 180px;
+        height: 100%;
+      }
+      H4{
+        text-align: left;
+        padding-left: 5px;
+        color: #000;
+        flex: 1;
+      }
     }
+
     .text{
       margin: 15px 0;
       font-size:@text_font_size_sm;
@@ -67,22 +76,6 @@
     }
   }
 
-  .footer{
-    height: @footer_height;
-    line-height:@footer_height;
-    background:#F7F9FA;
-    .footer-btn{
-      width: 50%;
-      display: flex;
-      float: left;
-      align-items: center;
-      justify-content: center;
-      height: @footer_height;
-      padding:0;
-      margin:0;
-      border: 1px solid #ddd;
-      font-size: @text_font_size_sm;
-    }
-  }
+
 
 </style>

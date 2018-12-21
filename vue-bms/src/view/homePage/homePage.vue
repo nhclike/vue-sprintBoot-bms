@@ -18,7 +18,7 @@
                     <div>
                       <el-row :gutter="12">
                         <el-col :span="24" style="margin-bottom: 10px" v-for="item in proclamations">
-                          <i-card-footer :proclamation="item"></i-card-footer>
+                          <i-card-proclamation :proclamation="item"></i-card-proclamation>
                         </el-col>
                       </el-row>
                     </div>
@@ -28,7 +28,7 @@
             </i-card>
           </el-col>
           <el-col :span="8">
-            <i-card title="通知" >
+            <i-card title="消息提醒" >
               <div slot="cardContext">
                 <div>
                   <el-table
@@ -75,9 +75,14 @@
 </template>
 
 <script>
+  //公告接口
+  import { Proclamation } from '../../api/api'
+
+  import { homePage } from '../../api/api'
+
   import iBreadcrumb from '@/components/breadcrumb/element-ui-breadcrumb'
   import iCard from '@/components/panel/element-ui-card'
-  import iCardFooter from '@/components/panel/element-ui-card-footer'
+  import iCardProclamation from '@/components/panel/element-ui-card-proclamation'
   import Scroll from '@/components/scroll/scroll'
   import iDialog from '@/components/modal/element-ui-dialog'
   import proclamationForm from '@/view/homePage/proclamationForm'
@@ -92,7 +97,7 @@
     components:{
       iBreadcrumb,
       iCard,
-      iCardFooter,
+      iCardProclamation,
       Scroll,
       iDialog,
       proclamationForm
@@ -105,7 +110,7 @@
     },
     created(){
       console.log('created');
-      this.getProList();
+      this.homePageGetAllProclamation();
       this.getTableList();
     },
     mounted(){
@@ -114,50 +119,14 @@
     },
     methods:{
       //get公告数据
-      getProList(){
-        this.proclamations=[
-          {
-            title:'本周报销单审批问题反馈',
-            text:'本周报销单审批问题反馈：1、电子和纸质报销单据不同步，有的间隔时间比较长！2、系统集成部的个别同事差旅费报销单未按项目分开报销，导致单据多而乱，延长审批时间。3、销售个别同事差旅费中住宿费和车票行程不一致；招待费发票与审批内容不一致。',
-            time:'2018/11/21 11:30:06'
-          },
-          {
-            title:'本周报销单审批问题反馈',
-            text:'本周报销单审批问题反馈：1、电子和纸质报销单据不同步，有的间隔时间比较长！2、系统集成部的个别同事差旅费报销单未按项目分开报销，导致单据多而乱，延长审批时间。3、销售个别同事差旅费中住宿费和车票行程不一致；招待费发票与审批内容不一致。',
-            time:'2018/11/21 11:30:06'
-          },
-          {
-            title:'本周报销单审批问题反馈',
-            text:'本周报销单审批问题反馈：1、电子和纸质报销单据不同步，有的间隔时间比较长！2、系统集成部的个别同事差旅费报销单未按项目分开报销，导致单据多而乱，延长审批时间。3、销售个别同事差旅费中住宿费和车票行程不一致；招待费发票与审批内容不一致。',
-            time:'2018/11/21 11:30:06'
-          },
-          {
-            title:'本周报销单审批问题反馈',
-            text:'本周报销单审批问题反馈：1、电子和纸质报销单据不同步，有的间隔时间比较长！2、系统集成部的个别同事差旅费报销单未按项目分开报销，导致单据多而乱，延长审批时间。3、销售个别同事差旅费中住宿费和车票行程不一致；招待费发票与审批内容不一致。',
-            time:'2018/11/21 11:30:06'
-          },
-          {
-            title:'本周报销单审批问题反馈',
-            text:'本周报销单审批问题反馈：1、电子和纸质报销单据不同步，有的间隔时间比较长！2、系统集成部的个别同事差旅费报销单未按项目分开报销，导致单据多而乱，延长审批时间。3、销售个别同事差旅费中住宿费和车票行程不一致；招待费发票与审批内容不一致。',
-            time:'2018/11/21 11:30:06'
-          },
-          {
-            title:'本周报销单审批问题反馈',
-            text:'本周报销单审批问题反馈：1、电子和纸质报销单据不同步，有的间隔时间比较长！2、系统集成部的个别同事差旅费报销单未按项目分开报销，导致单据多而乱，延长审批时间。3、销售个别同事差旅费中住宿费和车票行程不一致；招待费发票与审批内容不一致。',
-            time:'2018/11/21 11:30:06'
-          },
-          {
-            title:'本周报销单审批问题反馈',
-            text:'本周报销单审批问题反馈：1、电子和纸质报销单据不同步，有的间隔时间比较长！2、系统集成部的个别同事差旅费报销单未按项目分开报销，导致单据多而乱，延长审批时间。3、销售个别同事差旅费中住宿费和车票行程不一致；招待费发票与审批内容不一致。',
-            time:'2018/11/21 11:30:06'
-          },
-          {
-            title:'本周报销单审批问题反馈',
-            text:'本周报销单审批问题反馈：1、电子和纸质报销单据不同步，有的间隔时间比较长！2、系统集成部的个别同事差旅费报销单未按项目分开报销，导致单据多而乱，延长审批时间。3、销售个别同事差旅费中住宿费和车票行程不一致；招待费发票与审批内容不一致。',
-            time:'2018/11/21 11:30:06'
-          },
-        ];
+      homePageGetAllProclamation(){
+        homePage.HomePageGetAllProclamation().then((res)=>{
+          console.log(res);
+          var data=res.data;
+          this.proclamations=data;
+        })
       },
+
       //get通知table数据
       getTableList(){
         this.tableData=[
@@ -200,6 +169,7 @@
             text: '上海市普陀区金沙江路 1516 弄'
           }
         ];
+
       },
       //新增公告被点击
       operateBtnClick(){

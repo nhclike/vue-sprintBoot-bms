@@ -11,15 +11,10 @@
                     <el-input v-model="BMForm.proName"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="11">
-                  <el-form-item label="用户名称">
-                    <el-input v-model="BMForm.userName"></el-input>
-                  </el-form-item>
-                </el-col>
               </el-row>
               <el-row :gutter="20">
                 <el-col :span="11">
-                  <el-form-item label="填表人">
+                  <el-form-item label="填报人">
                     <el-input v-model="BMForm.writeName"></el-input>
                   </el-form-item>
                 </el-col>
@@ -35,14 +30,19 @@
               </el-row>
               <el-row :gutter="20">
                 <el-col :span="11">
+                  <el-form-item label="客户名称">
+                    <el-input v-model="BMForm.userName"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="11">
                   <el-form-item label="所属区域">
-                    <!--<el-input v-model="BMForm.area"></el-input>-->
                     <city-choose style="width: 100%">
 
                     </city-choose>
-
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <el-row :gutter="20">
                 <el-col :span="11">
                   <el-form-item label="项目类型">
                     <el-select v-model="BMForm.proType" placeholder="请选择">
@@ -53,6 +53,11 @@
                         :value="item.value">
                       </el-option>
                     </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                  <el-form-item label="客户名称">
+                    <el-input v-model="BMForm.otherProType" placeholder = "请输入确切的项目类型"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -78,20 +83,35 @@
               </el-row>
               <el-row :gutter="20">
                 <el-col :span="11">
-                  <el-form-item label="用户主经办人">
-                    <el-input v-model="BMForm.userHandler"></el-input>
+                  <el-form-item label="客户类型">
+                    <el-select v-model="BMForm.customerType">
+                      <option value="1" name="直接客户"></option>
+                      <option value="2" name="集成商"></option>
+                    </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                  <el-form-item label="经办人联系电话">
-                    <el-input v-model="BMForm.handlerPhone"></el-input>
+                  <el-form-item label="客户主经办人">
+                    <el-input v-model="BMForm.userHandler"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row :gutter="20">
                 <el-col :span="11">
-                  <el-form-item label="用户决策人">
+                  <el-form-item label="经办人联系电话">
+                    <el-input v-model="BMForm.handlerPhone"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                  <el-form-item label="客户决策人">
                     <el-input v-model="BMForm.userPolicymaker"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="11">
+                  <el-form-item label="客户决策人职务">
+                    <el-input v-model="BMForm.policymakerDuty"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">
@@ -102,37 +122,34 @@
               </el-row>
               <el-row :gutter="20">
                 <el-col :span="11">
-                  <el-form-item label="项目工程商">
+                  <el-form-item label="项目集成商">
                     <el-input v-model="BMForm.proContractor"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                  <el-form-item label="工程商联系电话">
+                  <el-form-item label="集成商联系电话">
                     <el-input v-model="BMForm.contractorPhone"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row :gutter="20">
-                <el-col :span="11">
-                  <el-form-item label="工程商情况描述">
-                    <el-select v-model="BMForm.contractorDescribe" placeholder="请选择">
-                      <el-option
-                        v-for="item in contractorDescribeOption"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="11">
-                  <el-form-item label="">
-                    <el-input v-model="BMForm.contractorDescribeInfo"></el-input>
+                <el-col :span="22">
+                  <el-form-item label="项目集成商情况">
+                      <el-input v-model="BMForm.contractorDescribe" type="textarea"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
             </el-collapse-item>
-            <el-collapse-item title="采购预算信息" name="2">
+            <el-collapse-item title="申请评估" name="2">
+              <el-row :gutter="20">
+                <el-col :span="22">
+                  <el-form-item label="描         述">
+                    <el-input v-model="BMForm.assessmentApplyInfo" type="textarea"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-collapse-item>
+            <el-collapse-item title="采购预算信息" name="3">
               <el-row :gutter="20">
                 <el-col :span="11">
                   <el-form-item label="采购方式">
@@ -147,44 +164,73 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">
-                  <el-form-item label="总体预算">
-                    <el-input v-model="BMForm.overallBudget"></el-input>
+                  <el-form-item label="分项预算/占比">
+                    <el-input v-model="BMForm.milestoneBudget"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row :gutter="20">
                 <el-col :span="11">
-                  <el-form-item label="分项预算/占比">
-                    <el-input v-model="BMForm.milestoneBudget"></el-input>
+                  <el-form-item label="总体预算">
+                    <el-input v-model="BMForm.overallBudget"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row >
+              <el-row :gutter="20">
+                <el-col :span="11">
+                  <el-form-item label="费用范围">
+                    <el-input v-model="BMForm.costRangeArr"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">
                   <el-form-item label="费用金额预计">
                     <el-input v-model="BMForm.costAmount"></el-input>
-
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row :gutter="20">
                 <el-col :span="22">
                   <el-form-item label="项目情况说明">
-                    <el-input type="textarea" v-model="BMForm.proExplain"></el-input>
+                    <el-input type="textarea" v-model="BMForm.proExplain">
+                      1、项目范围（建设内容）;
+                      2、项目里程碑时间点（方案提交截止时间、挂标时间预测、实施时间预测、项目验收时间预测）;
+                      3、项目角色关系（项目经办人与决策人工作范围和权限;
+                      4、工程商项目工作内容及比重;
+                    </el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
             </el-collapse-item>
-            <el-collapse-item title="竞争对手信息" name="3">
+            <el-collapse-item title="竞争对手信息" name="4">
               <el-row :gutter="20">
-                <el-col :span="22">
+                <el-col :span="11">
+                  <el-form-item label="竞争对手名称">
+                    <el-input v-model="BMForm.competitorName"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="11">
+                  <el-form-item label="竞争对手项目名称">
+                    <el-input v-model="BMForm.competitorProName"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row :gutter="20">
+                <el-col :span="11">
                   <el-form-item label="竞争对手情况">
                     <el-input type="textarea" v-model="BMForm.competitorInfo"></el-input>
                   </el-form-item>
                 </el-col>
+                <el-col :span="11">
+                  <el-form-item label="对手进度" prop="deptStatus">
+                    <el-select  v-model="BMForm.deptStatus" placeholder="请选择" style="width: 100%;">
+                      <el-option  value="1" label="正在制作方案"></el-option>
+                      <el-option  value="2" label="已提交方案"></el-option>
+                      <el-option  value="3" label="报价"></el-option>
+                      <el-option  value="4" label="其他关系运作"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
               </el-row>
-            </el-collapse-item>
-            <el-collapse-item title="可控 Controllability" name="4">
-              <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-              <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
             </el-collapse-item>
           </el-collapse>
         </el-form>
@@ -202,6 +248,7 @@
   export default {
     data: function(){
       return {
+        activeNames:'',
         BMForm: {
           proName:'',
           userName:'',
@@ -212,23 +259,25 @@
         },
         proTypeOption:[{
           value: '1',
-          label: '新建'
+          label: '法庭/讯问'
         }, {
           value: '2',
-          label: '改造'
+          label: '远程提讯/提讯指挥'
         }, {
           value: '3',
-          label: '散单销售'
-        }],
-        contractorDescribeOption:[{
-          value: '1',
-          label: '工程商业务主营(营业执照主营范围,是否具有其他产品代理资格或其他资质)'
+          label: '会议系统'
         }, {
-          value: '2',
-          label: '工程商与项目商务关系(是否直接参与投标,作为总包方/分包方,抽取利润,是否分担项目实施或其他内容)'
+          value: '4',
+          label: '会议系统'
         }, {
-          value: '3',
-          label: '工程商其他关联内容'
+          value: '5',
+          label: '一般集成/设备销售'
+        }, {
+          value: '6',
+          label: '软件定制开发'
+        }, {
+          value: '7',
+          label: '其他'
         }],
         purWayOption:[{
           value: '1',
@@ -259,6 +308,9 @@
         this.$router.push({
           path:'/index/BusinessManage'
         })
+      },
+      handleChange(){
+
       }
     }
   }
@@ -304,3 +356,4 @@
     width: 100%;
   }
 </style>
+                                                                                                                                                                                                                                                                                                                                                                         

@@ -1,6 +1,6 @@
 import axios from "axios";
 import qs from 'qs'
-
+/***登录***/
 export const loginApi = {
   userLogin(params){
     return new Promise(function(resolve, reject){
@@ -178,6 +178,8 @@ export const Privilege={
   }
 
 }
+
+/***商机***/
 export const BusinessManage={
   BMList(params){
     return new Promise(function(resolve, reject){
@@ -196,4 +198,31 @@ export const BusinessManage={
     })
   }
 }
+/***首页***/
+export const homePage={
+  HomePageGetAllProclamation(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/homePage/homePage_getAllProclamation',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+}
+
+
+/***公告***/
+
+export const Proclamation={
+  HomePageGetAllProclamation(params){
+    return new Promise(function(resolve, reject){
+      axios.post('/proclamation/proclamation_addOrUpdate',qs.stringify(params)).then((response)=>{
+        let res=response;
+        resolve(res)
+      })
+    })
+  },
+}
+
+
 
