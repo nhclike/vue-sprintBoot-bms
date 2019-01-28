@@ -69,7 +69,6 @@
           mutiSelect: false, // 是否支持列表项选中功能
         }, // table 的参数
         columns: [
-
           {
             prop: 'proName',
             label: '项目名称',
@@ -256,10 +255,7 @@
           path:'/index/BusinessManage/BusinessManageForm'
         })
       }
-
-
     }
-
   }
 </script>
 

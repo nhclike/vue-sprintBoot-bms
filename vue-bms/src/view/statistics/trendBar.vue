@@ -130,7 +130,7 @@
           }
         ]
       };
-// 绘制图表
+      // 绘制图表
       myChart.setOption(option);
     }
   }

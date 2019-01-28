@@ -1,0 +1,85 @@
+@import "./../../less/comm/variable";
+@top_chart_item_height:120px;
+@bottom_chart_title_height:40px;
+@space:20px;
+.statisticsContainer{
+  position: fixed;
+  top:@top_height+@breadcrumb_height;
+  bottom: 0;
+  left: @left_width;
+  right: 0;
+  padding:20px;
+  .bottom{
+    position: absolute;
+    top:@top_chart_item_height+@space*2;
+    bottom:20px;
+    left: 20px;
+    right: 20px;
+    background: #fff;
+    .bottom-wrapper{
+      height: 100%;
+      width: 100%;
+      .chart-header{
+        height: @bottom_chart_title_height;
+        line-height: @bottom_chart_title_height ;
+        display: flex;
+        align-items: center;
+        .title{
+          flex: 1;
+          text-align: left;
+          padding-left: 20px;
+        }
+        .month{
+          flex: 0 0 80px;
+          width: 80px;
+        }
+        .time{
+          flex: 0 0 260px;
+          width: 260px;
+        }
+      }
+      .chart-wrapper{
+        position: absolute;
+        top:@bottom_chart_title_height;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        .el-row{
+          height: 100%;
+          .el-col{
+            height: 100%;
+            .sjBar{
+              width:100%;
+              height: 100%;
+              padding: 20px;
+              .sjBar-wrapper{
+                height: 100%;
+                width: 100%;
+              }
+            }
+            .business-ranking-wrapper{
+              width:100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              .business_ranking{
+                flex: 0 0 40px;
+                height: 40px;
+                h4{
+                  height: 40px;
+                  font-size: 16px;
+                  font-weight: 600;
+                  line-height: 40px;
+                }
+              }
+              .business_ranking_list{
+                flex:1;
+                overflow-y: scroll;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

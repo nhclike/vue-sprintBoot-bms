@@ -72,7 +72,7 @@
           saveProclamationInfo(formName){
             this.submitForm(formName);
             if(this.validate){  //验证通过
-              this.$emit("saveProclamationInfo")
+              this.$emit("saveProclamationInfo",this.proclamationInfo)
             }
           },
           //重置公告信息

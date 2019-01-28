@@ -3,59 +3,28 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-
+const porxyPort="5040";
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
       '/loginVerify':{
         changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
+        target:'http://127.0.0.1:'+porxyPort, //处理跨域服务代理
         secure:false
       },
       '/login':{
         changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
+        target:'http://127.0.0.1:'+porxyPort,  //处理跨域服务代理
         secure:false
       },
-      '/dept/**':{
+      '/bms/**':{
         changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
+        target:'http://127.0.0.1:'+porxyPort, //处理跨域服务代理
         secure:false
-      },
-      '/user/**':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
-      '/role/**':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
-      '/privilege/**':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
-      '/businessManage/**':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
-      '/homePage/**':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
-      '/upload':{
-        changeOrigin: true,
-        target:'http://127.0.0.1:8081', //处理跨域服务代理
-        secure:false
-      },
+      }
     },
 
     // Various Dev Server settings

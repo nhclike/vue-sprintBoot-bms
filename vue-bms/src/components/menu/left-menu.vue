@@ -139,6 +139,7 @@
     width:@left_width;
     height: 100%;
     overflow-y:hidden;
+    background: #000;
     ul.mainMenu{
       text-align: center;
       height: 100%;

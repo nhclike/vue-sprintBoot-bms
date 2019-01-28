@@ -1,12 +1,5 @@
 <template>
 	<div>
-    <!--<i-breadcrumb>
-      <div slot="breadcrumb">
-        <el-breadcrumb-item :to="{ path: '/index/CompanyStatistics' }">商机统计</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/index/CompanyStatistics' }">个人统计</el-breadcrumb-item>
-
-      </div>
-    </i-breadcrumb>-->
     <div class="indexContainer">
       <div class="contextContainer">
         <el-row :gutter="20">
@@ -35,16 +28,16 @@
                     :data="tableData"
                     style="width: 100%"
                     :height="carBodyHeight"
-                    :default-sort = "{prop: 'date', order: 'descending'}"
+                    :default-sort = "{prop: 'noticeDate', order: 'descending'}"
                     ref="msgTable"
                   >
                     <el-table-column
-                      prop="text"
+                      prop="noticeContent"
                       label="内容"
                       width="">
                     </el-table-column>
                     <el-table-column
-                      prop="date"
+                      prop="noticeDate"
                       label="时间"
                       sortable
                       width="">
@@ -56,6 +49,7 @@
           </el-col>
         </el-row>
       </div>
+      <!--发布公告modal-->
       <i-dialog v-bind:mdShow="proclamationsModal"
                 title="公告新增"
                 width="20%"
@@ -64,7 +58,7 @@
       >
         <div slot="message">
           <div>
-            <proclamation-form :proclamationInfo="null">
+            <proclamation-form :proclamationInfo="null" @saveProclamationInfo="saveProclamationInfo">
 
             </proclamation-form>
           </div>
@@ -92,6 +86,7 @@
         tableData: [],//通知表格数据
         proclamations:[], //公告数据
         proclamationsModal:false,
+        proclamationFormInfo:{} //公告表单信息
       }
     },
     components:{
@@ -111,7 +106,8 @@
     created(){
       console.log('created');
       this.homePageGetAllProclamation();
-      this.getTableList();
+      //this.getTableList();
+      this.homePageGetAllNote();
     },
     mounted(){
       console.log('mounted');
@@ -120,13 +116,21 @@
     methods:{
       //get公告数据
       homePageGetAllProclamation(){
-        homePage.HomePageGetAllProclamation().then((res)=>{
-          console.log(res);
+        homePage.HPGetAllProclamation().then((res)=>{
+          //console.log(res);
           var data=res.data;
           this.proclamations=data;
         })
       },
+      //get消息列表数据
+      homePageGetAllNote(){
+        homePage.HPGetAllNote().then((res)=>{
 
+          var data=res.data;
+          this.tableData=data;
+          console.log(this.tableData);
+        })
+      },
       //get通知table数据
       getTableList(){
         this.tableData=[
@@ -183,6 +187,17 @@
       //新增公告隐藏
       proclamationsModalHide(){
         this.proclamationsModal=false;
+      },
+      //保存公告信息
+      saveProclamationInfo(value){
+        this.proclamationFormInfo=value;
+        Proclamation.proclamationAddOrUpdate(this.proclamationFormInfo).then((res)=>{
+          console.log(res);
+        });
+        //公告modal隐藏
+        this.proclamationsModalHide();
+        //公告列表刷新
+        this.homePageGetAllProclamation();
       },
       //刷新滚动条
       refreshScroll(){
